@@ -9,9 +9,6 @@ namespace Produtos.Utils
 {
     public static class Orcamento
     {
-        public static GerarOrcamento(List<ItemOrcamento> ItensOrcamento)
-        {
-
-        }
+      
     }
 }
