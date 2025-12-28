@@ -3,8 +3,25 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mensagem"]
+    </div>
+}
+<h1>Frente de Loja</h1>
+<hr />
+<div class="row">
+    @foreach(var produto in Model.Produtos)
+    {
+    <div class="card" style="width: 18rem;">
+      <img src="@produto.UrlImg" class="card-img-top" alt="imagem do produto" style="width: 150px;height:150px">
+      <div class="card-body">
+        <h5 class="card-title">@produto.NomeProduto</h5>
+        <p class="card-text">@produto.PesoProduto || @produto.Preco</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+    }
 </div>
+

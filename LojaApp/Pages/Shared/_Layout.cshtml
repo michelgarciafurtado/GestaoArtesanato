@@ -26,6 +26,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/CrudProdutos/Index">Produtos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Categorias/Index">Categorias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/CrudSubstancias/Index">Substancias</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -47,6 +56,24 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.js"></script> <!-- jQuery Validation -->
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script> <!-- Globalize -->
+    <script src="~/lib/jquery-globalize/globalize.js"></script>
+    <script src="~/lib/jquery-globalize/cultures/globalize.culture.pt-BR.js"></script>
+    <script> 
+        // Define a cultura para pt-BR 
+        Globalize.culture("pt-BR"); 
+        // Sobrescreve o método number para usar Globalize
+         $.validator.methods.number = function (value, element) {
+             return this.optional(element) || !isNaN(Globalize.parseFloat(value)); 
+         }; // Sobrescreve o método range para usar Globalize 
+         $.validator.methods.range = function (value, element, param) { 
+             var val = Globalize.parseFloat(value); 
+             return this.optional(element) || (val >= param[0] && val <= param[1]); 
+         };
+         </script> 
+         @RenderSection("Scripts", required: false)
 </body>
 </html>

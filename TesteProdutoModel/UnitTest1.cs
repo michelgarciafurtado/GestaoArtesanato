@@ -25,41 +25,41 @@ namespace TesteProdutoModel
             {
                 NomeProduto = "Sabonete de Aveia",
                 Categoria = new Categoria("Sabonete em Barra"),
-                medidaEnum = Produtos.Entities.Enums.TpMedidaEnum.gr,
+                medidaEnum = LojaApp.Models.Enums.TpMedidaEnum.gr,
                 PesoProduto = PersonalFormatter.DecimalFormatter("30")
             };
             List<Ingrediente> ListaIngredientes = new List<Ingrediente>()
                 {
                     new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("Base Sabonete GLicerinada",Produtos.Entities.Enums.TpMedidaEnum.gr)
+                         Substancia = new Substancia("Base Sabonete GLicerinada",LojaApp.Models.Enums.TpMedidaEnum.gr)
                          {
                              VlUn = gli
                          },
                          QtdIngrediente = 100m
                     },
                      new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("Essencia",Produtos.Entities.Enums.TpMedidaEnum.ml)
+                         Substancia = new Substancia("Essencia",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = esse
                          },
                          QtdIngrediente = 6m
                     },
                       new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("Extrato glicolico",Produtos.Entities.Enums.TpMedidaEnum.ml)
+                         Substancia = new Substancia("Extrato glicolico",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = glic
                          },
                          QtdIngrediente = 4m
                     },
                        new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("Lauril",Produtos.Entities.Enums.TpMedidaEnum.ml)
+                         Substancia = new Substancia("Lauril",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = lau
                          },
                          QtdIngrediente = 8m
                     },
                      new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("corante",Produtos.Entities.Enums.TpMedidaEnum.ml)
+                         Substancia = new Substancia("corante",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = cor
                          },

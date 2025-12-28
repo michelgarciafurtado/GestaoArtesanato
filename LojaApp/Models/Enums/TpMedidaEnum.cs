@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Produtos.Entities.Enums
+namespace LojaApp.Models.Enums
 {
     public enum TpMedidaEnum
     {

@@ -1,0 +1,73 @@
+﻿@page
+@model LojaApp.Pages.CrudProdutos.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if(TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mensagem"]
+    </div>
+}
+
+<h1>Gerenciamento de Produtos</h1>
+<hr/>
+<h3><a href="/CrudProdutos/Create">Novo</a> </h3>
+<hr />
+<div class="row">
+   <table class="table">
+       <thead>
+           <tr >
+                <th scope="col">
+                    
+                </th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Produtos[0].NomeProduto)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Produtos[0].Categoria)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Produtos[0].PesoProduto)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Produtos[0].medidaEnum)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Produtos[0].Preco)</th>
+                <th scope="col">Ações</th>
+                
+           </tr>
+       </thead>
+       <tbody>
+           @foreach(var produto in Model.Produtos)
+            {
+                <tr>
+                    <td>
+                        <img src="@Html.DisplayFor(model => produto.UrlImg)" style="width: 80px;height:80px" />
+                    </td>                
+                   <td>@Html.DisplayFor(model => produto.NomeProduto)</td>
+                    <td>@Html.DisplayFor(model => produto.Categoria.Descricao)</td>
+                    <td>@Html.DisplayFor(model => produto.PesoProduto)</td>
+                    <td>@Html.DisplayFor(model => produto.medidaEnum)</td>
+                    <td>@Html.DisplayFor(model => produto.Preco)</td>
+                    <td><a asp-page="./Editar"
+                         asp-route-IdProduto="@produto.IdProduto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+                                </svg>
+                        </a>
+                   </td>
+                </tr>
+                                
+            }
+        </tbody>
+   </table> 
+</div>
+
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var preview = document.getElementById('preview');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
