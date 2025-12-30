@@ -29,6 +29,7 @@ namespace LojaApp.Pages.CrudProdutos
                                    .Include(p => p.Categoria)
                                    .Include(p => p.ListaIngredientes)
                                    .ThenInclude(i => i.Substancia)
+                                   .Include(p => p.ListaCustos)
                                    .FirstOrDefaultAsync(p => p.IdProduto.Equals(IdProduto));
 
             if(resultado is null)
@@ -100,6 +101,17 @@ namespace LojaApp.Pages.CrudProdutos
             {
                 _context.Ingredientes.Remove(ingrediente);
                 await _context.SaveChangesAsync();
+            }
+            return RedirectToPage();
+        }
+        public async Task<IActionResult> OnPostDeleteCustoAsync(string IdCusto)
+        {
+            var custo = await _context.Custos.FirstOrDefaultAsync(x => x.IdCusto == IdCusto);
+            if (custo != null)
+            {
+                _context.Custos.Remove(custo);
+                await _context.SaveChangesAsync();
+                Mensagem = "Produto atualizado com sucesso!";
             }
             return RedirectToPage();
         }

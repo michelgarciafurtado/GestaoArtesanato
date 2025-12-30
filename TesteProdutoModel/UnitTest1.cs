@@ -26,7 +26,7 @@ namespace TesteProdutoModel
                 NomeProduto = "Sabonete de Aveia",
                 Categoria = new Categoria("Sabonete em Barra"),
                 medidaEnum = LojaApp.Models.Enums.TpMedidaEnum.gr,
-                PesoProduto = PersonalFormatter.DecimalFormatter("30")
+                PesoProduto = 30
             };
             List<Ingrediente> ListaIngredientes = new List<Ingrediente>()
                 {
@@ -35,41 +35,40 @@ namespace TesteProdutoModel
                          {
                              VlUn = gli
                          },
-                         QtdIngrediente = 100m
+                         QtdIngrediente = 100
                     },
                      new Ingrediente(){Produto = sabonete,
                          Substancia = new Substancia("Essencia",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = esse
                          },
-                         QtdIngrediente = 6m
-                    },
+                         QtdIngrediente = 6                    },
                       new Ingrediente(){Produto = sabonete,
                          Substancia = new Substancia("Extrato glicolico",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = glic
                          },
-                         QtdIngrediente = 4m
+                         QtdIngrediente = 4
                     },
                        new Ingrediente(){Produto = sabonete,
                          Substancia = new Substancia("Lauril",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = lau
                          },
-                         QtdIngrediente = 8m
+                         QtdIngrediente = 8
                     },
                      new Ingrediente(){Produto = sabonete,
                          Substancia = new Substancia("corante",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = cor
                          },
-                         QtdIngrediente  = 1m
+                         QtdIngrediente  = 1
                     }
                 };
             sabonete.ListaIngredientes = ListaIngredientes;
             
 
-            Assert.Equal(esperado, sabonete.CalcularCustoMateriaPrima());
+            Assert.Equal(esperado, sabonete.CalcularPrecoProduto());
 
         }
     }

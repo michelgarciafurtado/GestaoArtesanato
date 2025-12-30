@@ -13,6 +13,7 @@ public class Produto
     public string IdProduto { get; set; } =  Guid.NewGuid().ToString();
     [Display(Name = "Nome do Produto")]
     public required string NomeProduto { get; set; }
+    public string? Descricao { get; set; }
     public string? IdCategoria { get; set; }
 
     [ForeignKey(nameof(IdCategoria))]
@@ -26,8 +27,13 @@ public class Produto
     [Precision(18, 2)]
     public decimal Preco { get; set; }
     public List<Ingrediente>? ListaIngredientes { get; set; } = new List<Ingrediente>();
+    public List<Custos> ListaCustos { get; set; } = new List<Custos>();
+    [Precision(18, 2)]
+    [Display(Name = "Margem de Lucro (%)")]
+    public decimal MargemLucro { get; set; }
+  
 
-    public decimal CalcularCustoMateriaPrima()
+    public decimal CalcularPrecoProduto()
     {
         decimal valor = 0;
         try
@@ -36,14 +42,22 @@ public class Produto
             {
                 foreach (var item in ListaIngredientes)
                 {
-                    valor = valor + item.CalcularCustoIngrediente();
+                    valor += item.CalcularCustoIngrediente();
                 }
-                return PersonalFormatter.DecimalFormatter(Convert.ToString(valor));
+                
             }
-        }catch(Exception )
+            if(ListaCustos?.Count > 0)
+            {
+                foreach (var item in ListaCustos)
+                {
+                    valor += item.ValorCusto;
+                }
+            }
+            return PersonalFormatter.DecimalFormatter(Convert.ToString(valor));
+        }
+        catch(Exception )
         {
             throw;
-        }
-        return 0;   
+        }  
     }
 }

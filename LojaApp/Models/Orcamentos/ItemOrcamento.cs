@@ -14,7 +14,11 @@ public class ItemOrcamento
     public  int qtd { get; set; }
 
     public decimal TotalItem()
-    {
-        return Produto.CalcularCustoMateriaPrima() * qtd;
+    {   var PrecoProduto = Produto.CalcularPrecoProduto();
+        if(PrecoProduto <= 0 || qtd <= 0)
+        {
+            return 0;
+        }
+        return PrecoProduto * qtd;
     }
 }

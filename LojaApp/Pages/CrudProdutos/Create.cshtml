@@ -23,6 +23,11 @@
                 <span asp-validation-for="Produto.NomeProduto" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Produto.Descricao" class="control-label"></label>
+                <input asp-for="Produto.Descricao" class="form-control" />
+                <span asp-validation-for="Produto.Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Produto.IdCategoria" class="control-label">Categoria</label>
                 <select class="form-select"
                         asp-for="Produto.IdCategoria"
@@ -40,6 +45,11 @@
                         asp-for="Produto.medidaEnum"
                         asp-items="Html.GetEnumSelectList<LojaApp.Models.Enums.TpMedidaEnum>()"></select>
                 <span asp-validation-for="Produto.medidaEnum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.MargemLucro" class="control-label"></label>
+                <input asp-for="Produto.MargemLucro" class="form-control" />
+                <span asp-validation-for="Produto.MargemLucro" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Produto.Preco" class="control-label"></label>

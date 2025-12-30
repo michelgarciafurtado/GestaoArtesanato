@@ -41,5 +41,6 @@ namespace LojaApp.Data
 
             base.OnModelCreating(modelBuilder);
         }
+        public DbSet<LojaApp.Models.Produtos.Custos> Custos { get; set; } = default!;
     }
 }
