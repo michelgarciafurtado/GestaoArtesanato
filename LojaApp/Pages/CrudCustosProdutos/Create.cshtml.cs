@@ -16,7 +16,6 @@ namespace LojaApp.Pages.CrudCustosProdutos
         private readonly LojaApp.Data.AppDbContext _context;
         [BindProperty]
         public Custos Custos { get; set; } = default!;
-        [TempData]
         public string Message { get; set; } = string.Empty;
 
         public CreateModel(LojaApp.Data.AppDbContext context)
@@ -32,7 +31,7 @@ namespace LojaApp.Pages.CrudCustosProdutos
                 Message = "Produto não encontrado.";
                 return RedirectToPage("/CrudProdutos/Index");
             }
-            Custos custo = new Custos()
+            Custos = new Custos()
             {
                 IdProduto = produto.IdProduto,
                 Produto = produto
@@ -48,9 +47,11 @@ namespace LojaApp.Pages.CrudCustosProdutos
            
             if (!ModelState.IsValid)
             {
+                Message = "Dados informados sao incorretos";
                 return Page();
             }
-
+            Custos.IdProduto = IdProduto;
+            Custos.Produto = await _context.Produtos.FirstOrDefaultAsync(x => x.IdProduto == IdProduto);
             _context.Custos.Add(Custos);
             await _context.SaveChangesAsync();
 

@@ -38,9 +38,11 @@ namespace LojaApp.Pages.CrudProdutos
                 return RedirectToPage("/CrudProdutos/Index");
             }
             Produto = resultado;
-            
+
+            //Se estiver nulo, inicializa as listas para evitar erros na view
             Produto.ListaIngredientes ??= [];
-            
+            Produto.ListaCustos ??= [];
+
             SelectCategoria = new SelectList(_context.Categorias.ToList(), "IdCategoria", "Descricao");
 
             return Page();
@@ -65,6 +67,7 @@ namespace LojaApp.Pages.CrudProdutos
                 return RedirectToPage("/CrudProdutos/Index");
             }
             produtoDb.NomeProduto = Produto.NomeProduto;
+            produtoDb.Descricao = Produto.Descricao;
             produtoDb.IdCategoria = Produto.IdCategoria;
             produtoDb.PesoProduto = Produto.PesoProduto;
             produtoDb.medidaEnum = Produto.medidaEnum;
