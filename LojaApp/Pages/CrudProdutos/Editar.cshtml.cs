@@ -40,7 +40,8 @@ namespace LojaApp.Pages.CrudProdutos
             Produto = resultado;
 
             //Se estiver nulo, inicializa as listas para evitar erros na view
-            Produto.ListaIngredientes ??= [];
+            Produto.Preco = Produto.CalcularPrecoProduto();
+                Produto.ListaIngredientes ??= [];
             Produto.ListaCustos ??= [];
 
             SelectCategoria = new SelectList(_context.Categorias.ToList(), "IdCategoria", "Descricao");
@@ -71,6 +72,7 @@ namespace LojaApp.Pages.CrudProdutos
             produtoDb.IdCategoria = Produto.IdCategoria;
             produtoDb.PesoProduto = Produto.PesoProduto;
             produtoDb.medidaEnum = Produto.medidaEnum;
+            produtoDb.MargemLucro = Produto.MargemLucro;
             produtoDb.Preco = Produto.Preco;
             if (ImagemUpload != null)
             {
@@ -104,6 +106,8 @@ namespace LojaApp.Pages.CrudProdutos
             {
                 _context.Ingredientes.Remove(ingrediente);
                 await _context.SaveChangesAsync();
+                await OnPostAddProductAsync();
+                Mensagem = "Ingrediente excluído com sucesso!";
             }
             return RedirectToPage();
         }
@@ -114,7 +118,8 @@ namespace LojaApp.Pages.CrudProdutos
             {
                 _context.Custos.Remove(custo);
                 await _context.SaveChangesAsync();
-                Mensagem = "Produto atualizado com sucesso!";
+                await OnPostAddProductAsync();
+                Mensagem = "Custo Excluido com sucesso!";
             }
             return RedirectToPage();
         }

@@ -27,7 +27,7 @@ public class Produto
     [Precision(18, 2)]
     public decimal Preco { get; set; }
     public List<Ingrediente>? ListaIngredientes { get; set; } = new List<Ingrediente>();
-    public List<Custos> ListaCustos { get; set; } = new List<Custos>();
+    public List<Custos>? ListaCustos { get; set; } = new List<Custos>();
     [Precision(18, 2)]
     [Display(Name = "Margem de Lucro (%)")]
     public decimal MargemLucro { get; set; }
@@ -53,6 +53,7 @@ public class Produto
                     valor += item.ValorCusto;
                 }
             }
+            valor += ((valor*MargemLucro)/100);
             return PersonalFormatter.DecimalFormatter(Convert.ToString(valor));
         }
         catch(Exception )

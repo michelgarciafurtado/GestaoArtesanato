@@ -55,7 +55,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Produto.Preco" class="control-label"></label>
-                <input asp-for="Produto.Preco" class="form-control" />
+                <input asp-for="Produto.Preco" class="form-control" readonly/>
                 <span asp-validation-for="Produto.Preco" class="text-danger"></span>
             </div>
             <!-- INICIO Form-Group Imagem --> <div class="form-group">
@@ -71,6 +71,10 @@
                     </div>
                 </div>
             </div><!-- FIM Form-Group Imagem -->
+            <div class="form-group">
+                <label class="control-label">Custos (Ingrediente + Custos + Margem de lucro) = @(Model.Produto.CalcularPrecoProduto() != null ? Model.Produto.CalcularPrecoProduto() : "0,00")</label>
+
+            </div>
             <p>
                 <a asp-page="/CrudIngredientes/Create"
                    asp-route-IdProduto="@(Model.Produto?.IdProduto ?? "0")">
@@ -166,7 +170,7 @@
                                 <td>@custo.ValorCusto</td>
                                 <td>
                                     <button type="submit" asp-page-handler="DeleteCusto"
-                                            asp-route-IdIngrediente="@custo.IdCusto"
+                                            asp-route-IdCusto="@custo.IdCusto"
                                             class="btn btn-danger">
                                         Excluir
                                     </button>

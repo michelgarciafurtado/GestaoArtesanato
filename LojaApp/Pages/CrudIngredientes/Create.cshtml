@@ -45,7 +45,14 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-       <script>
+    <script>
+       Globalize.culture("pt-BR"); // Sobrescreve o método number do jQuery Validation para usar Globalize
+       $.validator.methods.number = function (value, element)
+       {
+           return this.optional(element) || !isNaN(Globalize.parseFloat(value));
+       };
+    </script>
+    <script>
         $(function () {
             // 1. Faz o validador do jQuery aceitar vírgula
             $.validator.methods.number = function (value, element) {
