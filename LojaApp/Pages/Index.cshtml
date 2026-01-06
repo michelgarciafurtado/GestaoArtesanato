@@ -1,28 +1,46 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Melius Saboaria Artesanal";
 }
+
+
+<div class="destaque-loja text-center py-5">
+    <h1 class="display-4 loja-titulo">Mellius Saboaria Artesanal</h1>
+    <p class="loja-subtitulo">Produtos artesanais feitos com carinho</p>
+    <a href="#produtos" class="btn btn-loja-banner">Descubra agora</a>
+</div>
+
+
 @if (TempData["Mensagem"] != null)
 {
-    <div class="alert alert-success">
+    <div class="alert alert-success text-center mt-3">
         @TempData["Mensagem"]
     </div>
 }
-<h1>Frente de Loja</h1>
-<hr />
-<div class="row">
-    @foreach(var produto in Model.Produtos)
-    {
-    <div class="card" style="width: 18rem;">
-      <img src="@produto.UrlImg" class="card-img-top" alt="imagem do produto" style="width: 150px;height:150px">
-      <div class="card-body">
-        <h5 class="card-title">@produto.NomeProduto</h5>
-                <p class="card-text">Peso:@produto.PesoProduto</p>
-                    <p class="card-text">Preço: @produto.Preco</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
+
+
+<div id="produtos" class="container mt-5">
+    <div class="row g-4">
+        @foreach (var produto in Model.Produtos)
+        {
+            <div class="col-md-4 col-lg-3">
+                <div class="card produto-card h-100 shadow-sm">
+                    <img src="@produto.UrlImg" class="card-img-top produto-img" alt="imagem do produto" />
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center">@produto.NomeProduto</h5>
+                        <p class="card-text text-muted text-center mb-1">Categoria: @produto.Categoria.Descricao</p>
+                        <p class="card-text text-center">@produto.Descricao</p>
+                        <p class="card-text text-center">Peso: @produto.PesoProduto @produto.medidaEnum.ToString()</p>
+                        <p class="card-text preco text-center">Preço: R$ @produto.Preco</p>
+                        <div class="mt-auto text-center">
+                            <a href="#" class="btn btn-loja">Comprar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-    }
 </div>
+
 

@@ -29,3 +29,71 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.destaque-loja {
+    background-color: #fffaf5;
+    border-bottom: 1px solid #e0dcd5;
+}
+
+.loja-titulo {
+    font-family: 'Georgia', serif;
+    color: #5a3e2b;
+    font-weight: bold;
+}
+
+.loja-subtitulo {
+    font-family: 'Arial', sans-serif;
+    color: #7a5c48;
+    margin-bottom: 20px;
+}
+
+.btn-loja-banner {
+    background-color: #8b5e3c;
+    color: #fff;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-loja-banner:hover {
+        background-color: #6d472c;
+    }
+/* Cards */
+
+.produto-card {
+    border: none;
+    border-radius: 12px;
+    background-color: #fffaf5;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .produto-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+.produto-img {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+.preco {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4a2c1a;
+}
+
+.btn-loja {
+    background-color: #8b5e3c;
+    color: #fff;
+    border-radius: 20px;
+    padding: 8px 20px;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-loja:hover {
+        background-color: #6d472c;
+    }

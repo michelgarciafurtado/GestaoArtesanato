@@ -39,9 +39,9 @@ namespace LojaApp.Pages.CrudProdutos
             }
             Produto = resultado;
 
-            //Se estiver nulo, inicializa as listas para evitar erros na view
             Produto.Preco = Produto.CalcularPrecoProduto();
-                Produto.ListaIngredientes ??= [];
+            //Se estiver nulo, inicializa as listas para evitar erros na view
+            Produto.ListaIngredientes ??= [];
             Produto.ListaCustos ??= [];
 
             SelectCategoria = new SelectList(_context.Categorias.ToList(), "IdCategoria", "Descricao");

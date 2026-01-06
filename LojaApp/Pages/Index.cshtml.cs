@@ -20,7 +20,9 @@ namespace LojaApp.Pages
         public List<Produto> Produtos { get; set; }
         public async Task<ActionResult> OnGetAsync()
         {
-            Produtos = await _context.Produtos.ToListAsync();
+            Produtos = await _context.Produtos
+                      .Include(p => p.Categoria) 
+                      .ToListAsync();
             if(Produtos.Count <= 0 || Produtos == null)
             {
                 Mensagem = "Problemas ao se conectar com a loja";
