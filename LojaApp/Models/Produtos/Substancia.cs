@@ -18,6 +18,8 @@ public class Substancia
     public decimal VlUn { get; set; }
     public TpMedidaEnum TpMedida { get; set; }
 
+    public decimal ValorTotalEstoque { get; private set; }
+    public decimal QtdEstoque { get; private set; }
     public Substancia()
     {
         
@@ -27,6 +29,12 @@ public class Substancia
         Descricao = descricao;
         TpMedida = tpmedida;
         VlUn = 0;
+    }
+    public void RegistrarEntrada(decimal quantidade, decimal valorTotal)
+    {
+        QtdEstoque += quantidade;
+        ValorTotalEstoque += valorTotal;
+        VlUn = ValorTotalEstoque / QtdEstoque;
     }
 
 
