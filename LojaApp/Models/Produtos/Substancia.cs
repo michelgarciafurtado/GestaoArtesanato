@@ -30,11 +30,11 @@ public class Substancia
         TpMedida = tpmedida;
         VlUn = 0;
     }
-    public void RegistrarEntrada(decimal quantidade, decimal valorTotal)
+    public void RegistrarEntrada(decimal quantidade, decimal valorTotal, decimal Peso)
     {
         QtdEstoque += quantidade;
         ValorTotalEstoque += valorTotal;
-        VlUn = ValorTotalEstoque / QtdEstoque;
+        VlUn = ValorTotalEstoque / (QtdEstoque * Peso);
     }
 
 
