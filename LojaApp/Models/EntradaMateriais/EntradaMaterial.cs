@@ -16,9 +16,9 @@ namespace LojaApp.Models.EntradaMateriais
         [ForeignKey(nameof(IdSubstancia))]
         public Substancia? Substancia { get; set; }
         public int Quantidade { get; set; } = 1;
-        [Display(Name = "Peso Total")]
+        [Display(Name = "Peso Un")]
         [Precision(18, 3)]
-        public decimal PesoTotal { get; set; }
+        public decimal PesoUn { get; set; }
         public TpMedidaEnum TipoMedida { get; set; }
         [Precision(18, 2)]
         [Display(Name = "Valor Un. R$")]
@@ -26,5 +26,8 @@ namespace LojaApp.Models.EntradaMateriais
         [Precision(18, 2)]
         [Display(Name = "Valor Total R$")]
         public  decimal ValorTotal => Quantidade * ValorUn;
+        [Precision(18, 3)]
+        [Display(Name = "Peso Total gr/ml")]
+        public  decimal PesoTotal => Quantidade * PesoUn;
     }
 }

@@ -46,7 +46,7 @@ namespace LojaApp.Pages.CrudEntradaMateriais
                 return Page();
             }
 
-            substancia.RegistrarEntrada(EntradaMaterial.Quantidade, EntradaMaterial.ValorTotal, EntradaMaterial.PesoTotal);
+            substancia.RegistrarEntrada(EntradaMaterial.Quantidade, EntradaMaterial.ValorTotal,EntradaMaterial.PesoTotal);
 
             _context.Entradas.Add(EntradaMaterial);
             await _context.SaveChangesAsync();

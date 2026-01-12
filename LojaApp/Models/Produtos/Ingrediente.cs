@@ -21,7 +21,8 @@ public class Ingrediente
     [ForeignKey(nameof(IdProduto))]
     public Produto? Produto { get; set; }
     [Display(Name = "Qtd. Ingr.")]
-    public int QtdIngrediente { get; set; }
+    [Precision(18,2)]
+    public decimal QtdIngrediente { get; set; }
     public decimal CalcularCustoIngrediente()
     {
         return QtdIngrediente * Substancia.VlUn;

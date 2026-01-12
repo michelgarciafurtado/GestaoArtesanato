@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -17,8 +18,13 @@ public class Substancia
     [Precision(18,2)]
     public decimal VlUn { get; set; }
     public TpMedidaEnum TpMedida { get; set; }
-
+    [Precision(18,2)]
+    [DisplayName("Valor R$ Estoque")]
     public decimal ValorTotalEstoque { get; private set; }
+    [Precision(18,3)]
+    [DisplayName("Peso gr/ml Estoque")]
+    public decimal PesoTotalEstoque { get; private set; }
+    [DisplayName("Quantidade Estoque Un")]
     public decimal QtdEstoque { get; private set; }
     public Substancia()
     {
@@ -30,11 +36,12 @@ public class Substancia
         TpMedida = tpmedida;
         VlUn = 0;
     }
-    public void RegistrarEntrada(decimal quantidade, decimal valorTotal, decimal Peso)
+    public void RegistrarEntrada(decimal quantidade, decimal valorTotal, decimal peso)
     {
         QtdEstoque += quantidade;
         ValorTotalEstoque += valorTotal;
-        VlUn = ValorTotalEstoque / (QtdEstoque * Peso);
+        PesoTotalEstoque += peso;
+        VlUn = ValorTotalEstoque /  PesoTotalEstoque;
     }
 
 
