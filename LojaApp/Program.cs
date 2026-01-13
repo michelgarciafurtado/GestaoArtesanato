@@ -1,4 +1,7 @@
 using LojaApp.Data;
+using LojaApp.Models.Users;
+using LojaApp.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +14,21 @@ builder.Services.AddDbContextFactory<AppDbContext>(options =>
                      ?? throw new InvalidOperationException("Nao encontrou a string de conexao")
                       )
 );
+
+// Configura Identity com suporte a Roles
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
+    options.SignIn.RequireConfirmedAccount = false;
+    }) 
+    .AddEntityFrameworkStores<AppDbContext>() //usa minha classe de contexto para acesso aos dados
+    .AddDefaultTokenProviders();
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope()) 
+{ 
+    var services = scope.ServiceProvider;
+    await IdentitySeed.CriarPerfis(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

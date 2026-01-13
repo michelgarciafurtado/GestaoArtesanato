@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LojaApp.Data;
 using LojaApp.Models.Produtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LojaApp.Pages.CrudSubstancias
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly LojaApp.Data.AppDbContext _context;
