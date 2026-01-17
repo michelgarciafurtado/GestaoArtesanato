@@ -12,9 +12,9 @@ namespace LojaApp.Models.EntradaMateriais
         [Key]
         public Guid IdEntrada { get; set; } = Guid.NewGuid();
         public DateOnly DataEntrada { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-        public required string IdSubstancia { get; set; }
-        [ForeignKey(nameof(IdSubstancia))]
-        public Substancia? Substancia { get; set; }
+        public required string IdMateriaPrima { get; set; }
+        [ForeignKey(nameof(IdMateriaPrima))]
+        public MateriaPrima? MateriaPrima { get; set; }
         public int Quantidade { get; set; } = 1;
         [Display(Name = "Peso Un")]
         [Precision(18, 3)]

@@ -14,13 +14,13 @@ public class Estoque
             
     }
 
-    public decimal ConsultarQuantidadeEstoque(string idSubstancia)
+    public decimal ConsultarQuantidadeEstoque(string IdMateriaPrima)
     {
         // Lógica para consultar o estoque de uma substância específica
         return 0m;
     }
 
-    public decimal ConsultarValorEstoque(string idSubstancia)
+    public decimal ConsultarValorEstoque(string IdMateriaPrima)
     {
         // Lógica para consultar o valor total do estoque de uma substância específica
         return 0m;

@@ -5,14 +5,14 @@
 namespace LojaApp.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateSubstanciaEntity : Migration
+    public partial class UpdateMateriaPrimaEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<decimal>(
                 name: "QtdEstoque",
-                table: "Substancias",
+                table: "MateriasPrimas",
                 type: "decimal(18,2)",
                 precision: 18,
                 scale: 2,
@@ -21,7 +21,7 @@ namespace LojaApp.Migrations
 
             migrationBuilder.AddColumn<decimal>(
                 name: "ValorTotalEstoque",
-                table: "Substancias",
+                table: "MateriasPrimas",
                 type: "decimal(18,2)",
                 precision: 18,
                 scale: 2,
@@ -34,11 +34,11 @@ namespace LojaApp.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "QtdEstoque",
-                table: "Substancias");
+                table: "MateriasPrimas");
 
             migrationBuilder.DropColumn(
                 name: "ValorTotalEstoque",
-                table: "Substancias");
+                table: "MateriasPrimas");
         }
     }
 }

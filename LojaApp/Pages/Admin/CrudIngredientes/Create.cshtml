@@ -1,0 +1,63 @@
+﻿@page
+@model LojaApp.Pages.CrudIngredientes.CreateModel
+
+        @{
+        ViewData["Title"] = "Create";
+        }
+        
+        <h1>Novo</h1>
+        
+    <h4>Ingrediente @Model.Ingrediente.Produto.NomeProduto</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Ingrediente.IdProduto" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingrediente.IdMateriaPrima" class="control-label">Substância</label>
+                <select asp-for="Ingrediente.IdMateriaPrima"
+                        class="form-control"
+                        asp-items="Model.SelectMateriaPrima">
+                </select>
+                <span asp-validation-for="Ingrediente.IdMateriaPrima" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingrediente.QtdIngrediente" class="control-label">Qtd </label>
+                <input type="text" asp-for="Ingrediente.QtdIngrediente" class="form-control" />
+                <span asp-validation-for="Ingrediente.QtdIngrediente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-page="/CrudProdutos">Voltar para lista</a>
+</div>
+
+<div>
+    <a asp-page="/CrudProdutos">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+       Globalize.culture("pt-BR"); // Sobrescreve o método number do jQuery Validation para usar Globalize
+       $.validator.methods.number = function (value, element)
+       {
+           return this.optional(element) || !isNaN(Globalize.parseFloat(value));
+       };
+    </script>
+    <script>
+        $(function () {
+            // 1. Faz o validador do jQuery aceitar vírgula
+            $.validator.methods.number = function (value, element) {
+                return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s.,]\d{3})+)(?:[.,]\d+)?$/.test(value);
+            };
+        });
+    </script>
+}

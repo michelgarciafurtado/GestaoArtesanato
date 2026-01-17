@@ -31,7 +31,7 @@ namespace LojaApp.Migrations
                     b.Property<DateOnly>("DataEntrada")
                         .HasColumnType("date");
 
-                    b.Property<string>("IdSubstancia")
+                    b.Property<string>("IdMateriaPrima")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -53,7 +53,7 @@ namespace LojaApp.Migrations
 
                     b.HasKey("IdEntrada");
 
-                    b.HasIndex("IdSubstancia");
+                    b.HasIndex("IdMateriaPrima");
 
                     b.ToTable("Entradas");
                 });
@@ -107,11 +107,11 @@ namespace LojaApp.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("IdProduto")
+                    b.Property<string>("IdMateriaPrima")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("IdSubstancia")
+                    b.Property<string>("IdProduto")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -121,11 +121,47 @@ namespace LojaApp.Migrations
 
                     b.HasKey("IdIngrediente");
 
+                    b.HasIndex("IdMateriaPrima");
+
                     b.HasIndex("IdProduto");
 
-                    b.HasIndex("IdSubstancia");
-
                     b.ToTable("Ingredientes");
+                });
+
+            modelBuilder.Entity("LojaApp.Models.Produtos.MateriaPrima", b =>
+                {
+                    b.Property<string>("IdMateriaPrima")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<decimal>("PesoTotalEstoque")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("QtdEstoque")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TpMedida")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ValorTotalEstoque")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VlUn")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("IdMateriaPrima");
+
+                    b.ToTable("MateriasPrimas");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Produto", b =>
@@ -171,42 +207,6 @@ namespace LojaApp.Migrations
                     b.HasIndex("IdCategoria");
 
                     b.ToTable("Produtos");
-                });
-
-            modelBuilder.Entity("LojaApp.Models.Produtos.Substancia", b =>
-                {
-                    b.Property<string>("IdSubstancia")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<decimal>("PesoTotalEstoque")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("QtdEstoque")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TpMedida")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ValorTotalEstoque")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("VlUn")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdSubstancia");
-
-                    b.ToTable("Substancias");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Users.ApplicationUser", b =>
@@ -442,13 +442,13 @@ namespace LojaApp.Migrations
 
             modelBuilder.Entity("LojaApp.Models.EntradaMateriais.EntradaMaterial", b =>
                 {
-                    b.HasOne("LojaApp.Models.Produtos.Substancia", "Substancia")
+                    b.HasOne("LojaApp.Models.Produtos.MateriaPrima", "MateriaPrima")
                         .WithMany()
-                        .HasForeignKey("IdSubstancia")
+                        .HasForeignKey("IdMateriaPrima")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Substancia");
+                    b.Navigation("MateriaPrima");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Custos", b =>
@@ -464,19 +464,19 @@ namespace LojaApp.Migrations
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Ingrediente", b =>
                 {
+                    b.HasOne("LojaApp.Models.Produtos.MateriaPrima", "MateriaPrima")
+                        .WithMany()
+                        .HasForeignKey("IdMateriaPrima")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("LojaApp.Models.Produtos.Produto", "Produto")
                         .WithMany("ListaIngredientes")
                         .HasForeignKey("IdProduto")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("LojaApp.Models.Produtos.Substancia", "Substancia")
-                        .WithMany()
-                        .HasForeignKey("IdSubstancia")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.Navigation("MateriaPrima");
 
                     b.Navigation("Produto");
-
-                    b.Navigation("Substancia");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Produto", b =>

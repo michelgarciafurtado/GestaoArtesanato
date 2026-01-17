@@ -23,17 +23,17 @@ namespace LojaApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Substancias",
+                name: "MateriasPrimas",
                 columns: table => new
                 {
-                    IdSubstancia = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    IdMateriaPrima = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Descricao = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     VlUn = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     TpMedida = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Substancias", x => x.IdSubstancia);
+                    table.PrimaryKey("PK_MateriasPrimas", x => x.IdMateriaPrima);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,8 +63,8 @@ namespace LojaApp.Migrations
                 columns: table => new
                 {
                     IdIngrediente = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    IdSubstancia = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    SubstanciaIdSubstancia = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    IdMateriaPrima = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    MateriaPrimaIdMateriaPrima = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     IdProduto = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     ProdutoIdProduto = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     QtdIngrediente = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
@@ -79,10 +79,10 @@ namespace LojaApp.Migrations
                         principalColumn: "IdProduto",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ingredientes_Substancias_SubstanciaIdSubstancia",
-                        column: x => x.SubstanciaIdSubstancia,
-                        principalTable: "Substancias",
-                        principalColumn: "IdSubstancia",
+                        name: "FK_Ingredientes_MateriasPrimas_MateriaPrimaIdMateriaPrima",
+                        column: x => x.MateriaPrimaIdMateriaPrima,
+                        principalTable: "MateriasPrimas",
+                        principalColumn: "IdMateriaPrima",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -92,9 +92,9 @@ namespace LojaApp.Migrations
                 column: "ProdutoIdProduto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ingredientes_SubstanciaIdSubstancia",
+                name: "IX_Ingredientes_MateriaPrimaIdMateriaPrima",
                 table: "Ingredientes",
-                column: "SubstanciaIdSubstancia");
+                column: "MateriaPrimaIdMateriaPrima");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produtos_IdCategoria",
@@ -112,7 +112,7 @@ namespace LojaApp.Migrations
                 name: "Produtos");
 
             migrationBuilder.DropTable(
-                name: "Substancias");
+                name: "MateriasPrimas");
 
             migrationBuilder.DropTable(
                 name: "Categorias");

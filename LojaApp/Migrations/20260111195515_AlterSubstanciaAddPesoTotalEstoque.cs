@@ -5,7 +5,7 @@
 namespace LojaApp.Migrations
 {
     /// <inheritdoc />
-    public partial class AlterSubstanciaAddPesoTotalEstoque : Migration
+    public partial class AlterMateriaPrimaAddPesoTotalEstoque : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace LojaApp.Migrations
 
             migrationBuilder.AddColumn<decimal>(
                 name: "PesoTotalEstoque",
-                table: "Substancias",
+                table: "MateriasPrimas",
                 type: "decimal(18,2)",
                 precision: 18,
                 scale: 2,
@@ -30,7 +30,7 @@ namespace LojaApp.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "PesoTotalEstoque",
-                table: "Substancias");
+                table: "MateriasPrimas");
 
             migrationBuilder.RenameColumn(
                 name: "PesoUn",

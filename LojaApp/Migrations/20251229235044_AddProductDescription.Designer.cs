@@ -50,7 +50,7 @@ namespace LojaApp.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("IdSubstancia")
+                    b.Property<string>("IdMateriaPrima")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -61,7 +61,7 @@ namespace LojaApp.Migrations
 
                     b.HasIndex("IdProduto");
 
-                    b.HasIndex("IdSubstancia");
+                    b.HasIndex("IdMateriaPrima");
 
                     b.ToTable("Ingredientes");
                 });
@@ -107,9 +107,9 @@ namespace LojaApp.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("LojaApp.Models.Produtos.Substancia", b =>
+            modelBuilder.Entity("LojaApp.Models.Produtos.MateriaPrima", b =>
                 {
-                    b.Property<string>("IdSubstancia")
+                    b.Property<string>("IdMateriaPrima")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -126,9 +126,9 @@ namespace LojaApp.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("IdSubstancia");
+                    b.HasKey("IdMateriaPrima");
 
-                    b.ToTable("Substancias");
+                    b.ToTable("MateriasPrimas");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Ingrediente", b =>
@@ -138,14 +138,14 @@ namespace LojaApp.Migrations
                         .HasForeignKey("IdProduto")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("LojaApp.Models.Produtos.Substancia", "Substancia")
+                    b.HasOne("LojaApp.Models.Produtos.MateriaPrima", "MateriaPrima")
                         .WithMany()
-                        .HasForeignKey("IdSubstancia")
+                        .HasForeignKey("IdMateriaPrima")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Produto");
 
-                    b.Navigation("Substancia");
+                    b.Navigation("MateriaPrima");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Produto", b =>

@@ -13,7 +13,7 @@ namespace LojaApp.Data
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Ingrediente> Ingredientes { get; set; }
         public DbSet<LojaApp.Models.Produtos.Custos> Custos { get; set; } = default!;
-        public DbSet<Substancia> Substancias { get; set; }
+        public DbSet<MateriaPrima> MateriasPrimas { get; set; }
         public DbSet<EntradaMaterial> Entradas { get; set; }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -29,7 +29,7 @@ namespace LojaApp.Data
                 .Property(p => p.medidaEnum)
                 .HasConversion<string>();
 
-            modelBuilder.Entity<Substancia>()
+            modelBuilder.Entity<MateriaPrima>()
                 .Property(s => s.TpMedida)
                 .HasConversion<string>();
 
@@ -40,9 +40,9 @@ namespace LojaApp.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Ingrediente>()
-                .HasOne(i => i.Substancia)
+                .HasOne(i => i.MateriaPrima)
                 .WithMany()
-                .HasForeignKey(i => i.IdSubstancia)
+                .HasForeignKey(i => i.IdMateriaPrima)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<EntradaMaterial>()
@@ -50,9 +50,9 @@ namespace LojaApp.Data
                 .HasConversion<string>();
 
             modelBuilder.Entity<EntradaMaterial>()
-                .HasOne(e => e.Substancia)
+                .HasOne(e => e.MateriaPrima)
                 .WithMany()
-                .HasForeignKey(e => e.IdSubstancia)
+                .HasForeignKey(e => e.IdMateriaPrima)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);

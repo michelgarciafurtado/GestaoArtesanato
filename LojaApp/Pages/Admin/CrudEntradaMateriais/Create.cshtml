@@ -1,0 +1,73 @@
+﻿@page
+@model LojaApp.Pages.CrudEntradaMateriais.CreateModel
+
+        @{
+        ViewData["Title"] = "Entrada de Materiais";
+        }
+        @if (TempData["Mensagem"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Mensagem"]
+            </div>
+        }
+        
+        <h1>Create</h1>
+        
+    <h4>Entrada de Materiais</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EntradaMaterial.DataEntrada" class="control-label"></label>
+                <input asp-for="EntradaMaterial.DataEntrada" class="form-control" />
+                <span asp-validation-for="EntradaMaterial.DataEntrada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntradaMaterial.IdMateriaPrima" class="control-label"></label>
+                <select asp-for="EntradaMaterial.IdMateriaPrima" class ="form-control" asp-items="ViewBag.IdMateriaPrima" ></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntradaMaterial.Quantidade" class="control-label"></label>
+                <input asp-for="EntradaMaterial.Quantidade" class="form-control" />
+                <span asp-validation-for="EntradaMaterial.Quantidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntradaMaterial.PesoUn" class="control-label">Peso Un.</label>
+                <input asp-for="EntradaMaterial.PesoUn" class="form-control" />
+                <span asp-validation-for="EntradaMaterial.PesoUn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntradaMaterial.TipoMedida" class="control-label"></label>
+                <select asp-for="EntradaMaterial.TipoMedida" class="form-control"
+                        asp-items="Html.GetEnumSelectList<LojaApp.Models.Enums.TpMedidaEnum>()"></select>
+                <span asp-validation-for="EntradaMaterial.TipoMedida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntradaMaterial.ValorUn" class="control-label"></label>
+                <input asp-for="EntradaMaterial.ValorUn" class="form-control" />
+                <span asp-validation-for="EntradaMaterial.ValorUn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(function () {
+            // 1. Faz o validador do jQuery aceitar vírgula
+            $.validator.methods.number = function (value, element) {
+                return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s.,]\d{3})+)(?:[.,]\d+)?$/.test(value);
+            };
+        });
+    </script>
+}

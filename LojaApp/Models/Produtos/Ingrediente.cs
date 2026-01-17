@@ -14,9 +14,9 @@ public class Ingrediente
 {
     [Key]
     public string IdIngrediente { get; set; } = Guid.NewGuid().ToString();  
-    public string? IdSubstancia { get; set; }
-    [ForeignKey(nameof(IdSubstancia))]
-    public Substancia? Substancia { get; set; }
+    public string? IdMateriaPrima { get; set; }
+    [ForeignKey(nameof(IdMateriaPrima))]
+    public MateriaPrima? MateriaPrima { get; set; }
     public string? IdProduto { get; set; }
     [ForeignKey(nameof(IdProduto))]
     public Produto? Produto { get; set; }
@@ -25,6 +25,6 @@ public class Ingrediente
     public decimal QtdIngrediente { get; set; }
     public decimal CalcularCustoIngrediente()
     {
-        return QtdIngrediente * Substancia.VlUn;
+        return QtdIngrediente * MateriaPrima.VlUn;
     }
 }

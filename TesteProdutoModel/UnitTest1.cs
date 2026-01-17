@@ -31,34 +31,34 @@ namespace TesteProdutoModel
             List<Ingrediente> ListaIngredientes = new List<Ingrediente>()
                 {
                     new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("Base Sabonete GLicerinada",LojaApp.Models.Enums.TpMedidaEnum.gr)
+                         MateriaPrima = new MateriaPrima("Base Sabonete GLicerinada",LojaApp.Models.Enums.TpMedidaEnum.gr)
                          {
                              VlUn = gli
                          },
                          QtdIngrediente = 100
                     },
                      new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("Essencia",LojaApp.Models.Enums.TpMedidaEnum.ml)
+                         MateriaPrima = new MateriaPrima("Essencia",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = esse
                          },
                          QtdIngrediente = 6                    },
                       new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("Extrato glicolico",LojaApp.Models.Enums.TpMedidaEnum.ml)
+                         MateriaPrima = new MateriaPrima("Extrato glicolico",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = glic
                          },
                          QtdIngrediente = 4
                     },
                        new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("Lauril",LojaApp.Models.Enums.TpMedidaEnum.ml)
+                         MateriaPrima = new MateriaPrima("Lauril",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = lau
                          },
                          QtdIngrediente = 8
                     },
                      new Ingrediente(){Produto = sabonete,
-                         Substancia = new Substancia("corante",LojaApp.Models.Enums.TpMedidaEnum.ml)
+                         MateriaPrima = new MateriaPrima("corante",LojaApp.Models.Enums.TpMedidaEnum.ml)
                          {
                              VlUn = cor
                          },

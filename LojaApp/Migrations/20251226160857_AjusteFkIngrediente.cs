@@ -15,7 +15,7 @@ namespace LojaApp.Migrations
                 table: "Ingredientes");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Ingredientes_Substancias_SubstanciaIdSubstancia",
+                name: "FK_Ingredientes_MateriasPrimas_MateriaPrimaIdMateriaPrima",
                 table: "Ingredientes");
 
             migrationBuilder.DropIndex(
@@ -23,7 +23,7 @@ namespace LojaApp.Migrations
                 table: "Ingredientes");
 
             migrationBuilder.DropIndex(
-                name: "IX_Ingredientes_SubstanciaIdSubstancia",
+                name: "IX_Ingredientes_MateriaPrimaIdMateriaPrima",
                 table: "Ingredientes");
 
             migrationBuilder.DropColumn(
@@ -31,7 +31,7 @@ namespace LojaApp.Migrations
                 table: "Ingredientes");
 
             migrationBuilder.DropColumn(
-                name: "SubstanciaIdSubstancia",
+                name: "MateriaPrimaIdMateriaPrima",
                 table: "Ingredientes");
 
             migrationBuilder.CreateIndex(
@@ -40,9 +40,9 @@ namespace LojaApp.Migrations
                 column: "IdProduto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ingredientes_IdSubstancia",
+                name: "IX_Ingredientes_IdMateriaPrima",
                 table: "Ingredientes",
-                column: "IdSubstancia");
+                column: "IdMateriaPrima");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Ingredientes_Produtos_IdProduto",
@@ -53,11 +53,11 @@ namespace LojaApp.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Ingredientes_Substancias_IdSubstancia",
+                name: "FK_Ingredientes_MateriasPrimas_IdMateriaPrima",
                 table: "Ingredientes",
-                column: "IdSubstancia",
-                principalTable: "Substancias",
-                principalColumn: "IdSubstancia",
+                column: "IdMateriaPrima",
+                principalTable: "MateriasPrimas",
+                principalColumn: "IdMateriaPrima",
                 onDelete: ReferentialAction.Restrict);
         }
 
@@ -69,7 +69,7 @@ namespace LojaApp.Migrations
                 table: "Ingredientes");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Ingredientes_Substancias_IdSubstancia",
+                name: "FK_Ingredientes_MateriasPrimas_IdMateriaPrima",
                 table: "Ingredientes");
 
             migrationBuilder.DropIndex(
@@ -77,7 +77,7 @@ namespace LojaApp.Migrations
                 table: "Ingredientes");
 
             migrationBuilder.DropIndex(
-                name: "IX_Ingredientes_IdSubstancia",
+                name: "IX_Ingredientes_IdMateriaPrima",
                 table: "Ingredientes");
 
             migrationBuilder.AddColumn<string>(
@@ -89,7 +89,7 @@ namespace LojaApp.Migrations
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "SubstanciaIdSubstancia",
+                name: "MateriaPrimaIdMateriaPrima",
                 table: "Ingredientes",
                 type: "nvarchar(150)",
                 maxLength: 150,
@@ -102,9 +102,9 @@ namespace LojaApp.Migrations
                 column: "ProdutoIdProduto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ingredientes_SubstanciaIdSubstancia",
+                name: "IX_Ingredientes_MateriaPrimaIdMateriaPrima",
                 table: "Ingredientes",
-                column: "SubstanciaIdSubstancia");
+                column: "MateriaPrimaIdMateriaPrima");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Ingredientes_Produtos_ProdutoIdProduto",
@@ -115,11 +115,11 @@ namespace LojaApp.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Ingredientes_Substancias_SubstanciaIdSubstancia",
+                name: "FK_Ingredientes_MateriasPrimas_MateriaPrimaIdMateriaPrima",
                 table: "Ingredientes",
-                column: "SubstanciaIdSubstancia",
-                principalTable: "Substancias",
-                principalColumn: "IdSubstancia",
+                column: "MateriaPrimaIdMateriaPrima",
+                principalTable: "MateriasPrimas",
+                principalColumn: "IdMateriaPrima",
                 onDelete: ReferentialAction.Cascade);
         }
     }

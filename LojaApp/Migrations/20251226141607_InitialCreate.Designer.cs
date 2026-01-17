@@ -50,7 +50,7 @@ namespace LojaApp.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("IdSubstancia")
+                    b.Property<string>("IdMateriaPrima")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -63,7 +63,7 @@ namespace LojaApp.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("SubstanciaIdSubstancia")
+                    b.Property<string>("MateriaPrimaIdMateriaPrima")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -72,7 +72,7 @@ namespace LojaApp.Migrations
 
                     b.HasIndex("ProdutoIdProduto");
 
-                    b.HasIndex("SubstanciaIdSubstancia");
+                    b.HasIndex("MateriaPrimaIdMateriaPrima");
 
                     b.ToTable("Ingredientes");
                 });
@@ -115,9 +115,9 @@ namespace LojaApp.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("LojaApp.Models.Produtos.Substancia", b =>
+            modelBuilder.Entity("LojaApp.Models.Produtos.MateriaPrima", b =>
                 {
-                    b.Property<string>("IdSubstancia")
+                    b.Property<string>("IdMateriaPrima")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -134,9 +134,9 @@ namespace LojaApp.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("IdSubstancia");
+                    b.HasKey("IdMateriaPrima");
 
-                    b.ToTable("Substancias");
+                    b.ToTable("MateriasPrimas");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Ingrediente", b =>
@@ -147,15 +147,15 @@ namespace LojaApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LojaApp.Models.Produtos.Substancia", "Substancia")
+                    b.HasOne("LojaApp.Models.Produtos.MateriaPrima", "MateriaPrima")
                         .WithMany()
-                        .HasForeignKey("SubstanciaIdSubstancia")
+                        .HasForeignKey("MateriaPrimaIdMateriaPrima")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Produto");
 
-                    b.Navigation("Substancia");
+                    b.Navigation("MateriaPrima");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Produto", b =>

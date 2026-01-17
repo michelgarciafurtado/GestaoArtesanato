@@ -17,7 +17,7 @@ namespace LojaApp.Migrations
                 {
                     IdEntrada = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DataEntrada = table.Column<DateOnly>(type: "date", nullable: false),
-                    IdSubstancia = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    IdMateriaPrima = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
                     PesoTotal = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     TipoMedida = table.Column<string>(type: "nvarchar(150)", nullable: false),
@@ -27,17 +27,17 @@ namespace LojaApp.Migrations
                 {
                     table.PrimaryKey("PK_Entradas", x => x.IdEntrada);
                     table.ForeignKey(
-                        name: "FK_Entradas_Substancias_IdSubstancia",
-                        column: x => x.IdSubstancia,
-                        principalTable: "Substancias",
-                        principalColumn: "IdSubstancia",
+                        name: "FK_Entradas_MateriasPrimas_IdMateriaPrima",
+                        column: x => x.IdMateriaPrima,
+                        principalTable: "MateriasPrimas",
+                        principalColumn: "IdMateriaPrima",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entradas_IdSubstancia",
+                name: "IX_Entradas_IdMateriaPrima",
                 table: "Entradas",
-                column: "IdSubstancia");
+                column: "IdMateriaPrima");
         }
 
         /// <inheritdoc />

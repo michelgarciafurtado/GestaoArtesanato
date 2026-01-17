@@ -1,0 +1,59 @@
+﻿@page
+@model LojaApp.Pages.CrudMateriaPrima.CreateModel
+
+        @{
+        ViewData["Title"] = "Create";
+        }
+        
+        <h1>Create</h1>
+        
+    <h4>Materia-Prima</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MateriaPrima.Descricao" class="control-label"></label>
+                <input asp-for="MateriaPrima.Descricao" class="form-control" />
+                <span asp-validation-for="MateriaPrima.Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MateriaPrima.VlUn" class="control-label"></label>
+                <input asp-for="MateriaPrima.VlUn" type="text" class="form-control" 
+           data-val="true" data-val-number="O campo Valor deve ser um número." />
+                <span asp-validation-for="MateriaPrima.VlUn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MateriaPrima.TpMedida" class="control-label"></label>
+                <select asp-for="MateriaPrima.TpMedida"
+                        class="form-control"
+                        asp-items="Html.GetEnumSelectList<LojaApp.Models.Enums.TpMedidaEnum>()"></select>
+                <span asp-validation-for="MateriaPrima.TpMedida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Substitui a regra de validação de números para aceitar o formato brasileiro
+        $.validator.methods.number = function (value, element) {
+            return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+        };
+
+        // Correção específica para range (opcional, mas evita erros em decimais)
+        $.validator.methods.range = function (value, element, param) {
+            var globalizedValue = value.replace(",", ".");
+            return this.optional(element) || (globalizedValue >= param[0] && globalizedValue <= param[1]);
+        };
+    </script>
+}
