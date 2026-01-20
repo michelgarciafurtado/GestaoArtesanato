@@ -42,7 +42,7 @@ namespace LojaApp.Pages.CrudProdutos
             if (produtoDb is null)
             {
                 Mensagem = "Produto não encontrado.";
-                return RedirectToPage("/CrudProdutos/Index");
+                return RedirectToPage("./Index");
             }
             //Remover ingredientes associados
             if(produtoDb.ListaIngredientes is not null && produtoDb.ListaIngredientes.Count > 0)

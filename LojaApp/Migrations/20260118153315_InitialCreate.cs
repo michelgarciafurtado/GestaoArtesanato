@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LojaApp.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserSecurity : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,6 +50,35 @@ namespace LojaApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categorias",
+                columns: table => new
+                {
+                    IdCategoria = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categorias", x => x.IdCategoria);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MateriasPrimas",
+                columns: table => new
+                {
+                    IdMateriaPrima = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    VlUn = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    TpMedida = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ValorTotalEstoque = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    PesoTotalEstoque = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    QtdEstoque = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MateriasPrimas", x => x.IdMateriaPrima);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,6 +187,99 @@ namespace LojaApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Produtos",
+                columns: table => new
+                {
+                    IdProduto = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    NomeProduto = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Descricao = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    IdCategoria = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    PesoProduto = table.Column<int>(type: "int", nullable: false),
+                    medidaEnum = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UrlImg = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Preco = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    MargemLucro = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Produtos", x => x.IdProduto);
+                    table.ForeignKey(
+                        name: "FK_Produtos_Categorias_IdCategoria",
+                        column: x => x.IdCategoria,
+                        principalTable: "Categorias",
+                        principalColumn: "IdCategoria");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Entradas",
+                columns: table => new
+                {
+                    IdEntrada = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DataEntrada = table.Column<DateOnly>(type: "date", nullable: false),
+                    IdMateriaPrima = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false),
+                    PesoUn = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    TipoMedida = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ValorUn = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Entradas", x => x.IdEntrada);
+                    table.ForeignKey(
+                        name: "FK_Entradas_MateriasPrimas_IdMateriaPrima",
+                        column: x => x.IdMateriaPrima,
+                        principalTable: "MateriasPrimas",
+                        principalColumn: "IdMateriaPrima",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Custos",
+                columns: table => new
+                {
+                    IdCusto = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    DescricaoCusto = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    ValorCusto = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    IdProduto = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Custos", x => x.IdCusto);
+                    table.ForeignKey(
+                        name: "FK_Custos_Produtos_IdProduto",
+                        column: x => x.IdProduto,
+                        principalTable: "Produtos",
+                        principalColumn: "IdProduto",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ingredientes",
+                columns: table => new
+                {
+                    IdIngrediente = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    IdMateriaPrima = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    IdProduto = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    QtdIngrediente = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ingredientes", x => x.IdIngrediente);
+                    table.ForeignKey(
+                        name: "FK_Ingredientes_MateriasPrimas_IdMateriaPrima",
+                        column: x => x.IdMateriaPrima,
+                        principalTable: "MateriasPrimas",
+                        principalColumn: "IdMateriaPrima",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Ingredientes_Produtos_IdProduto",
+                        column: x => x.IdProduto,
+                        principalTable: "Produtos",
+                        principalColumn: "IdProduto",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -196,6 +318,31 @@ namespace LojaApp.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Custos_IdProduto",
+                table: "Custos",
+                column: "IdProduto");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Entradas_IdMateriaPrima",
+                table: "Entradas",
+                column: "IdMateriaPrima");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ingredientes_IdMateriaPrima",
+                table: "Ingredientes",
+                column: "IdMateriaPrima");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ingredientes_IdProduto",
+                table: "Ingredientes",
+                column: "IdProduto");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Produtos_IdCategoria",
+                table: "Produtos",
+                column: "IdCategoria");
         }
 
         /// <inheritdoc />
@@ -217,10 +364,28 @@ namespace LojaApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Custos");
+
+            migrationBuilder.DropTable(
+                name: "Entradas");
+
+            migrationBuilder.DropTable(
+                name: "Ingredientes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "MateriasPrimas");
+
+            migrationBuilder.DropTable(
+                name: "Produtos");
+
+            migrationBuilder.DropTable(
+                name: "Categorias");
         }
     }
 }

@@ -15,7 +15,7 @@ public static class IdentitySeed
 
         foreach (var perfil in perfis)
         {
-            if (await roleManager.RoleExistsAsync(perfil))
+            if (!await roleManager.RoleExistsAsync(perfil))
             {
                 await roleManager.CreateAsync(new IdentityRole(perfil));
             }
@@ -30,7 +30,7 @@ public static class IdentitySeed
         {
             adminUser = new ApplicationUser()
             {
-                UserName = "MasterKey",
+                UserName = "01MasterKey#",
                 Email = adminEmail,
                 NomeCompleto = "Administrador Padrão",
                 EmailConfirmed = true

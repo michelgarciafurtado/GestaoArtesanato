@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LojaApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260113134619_AddUserSecurity")]
-    partial class AddUserSecurity
+    [Migration("20260118153315_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,11 +110,11 @@ namespace LojaApp.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("IdProduto")
+                    b.Property<string>("IdMateriaPrima")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("IdMateriaPrima")
+                    b.Property<string>("IdProduto")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -124,11 +124,47 @@ namespace LojaApp.Migrations
 
                     b.HasKey("IdIngrediente");
 
-                    b.HasIndex("IdProduto");
-
                     b.HasIndex("IdMateriaPrima");
 
+                    b.HasIndex("IdProduto");
+
                     b.ToTable("Ingredientes");
+                });
+
+            modelBuilder.Entity("LojaApp.Models.Produtos.MateriaPrima", b =>
+                {
+                    b.Property<string>("IdMateriaPrima")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<decimal>("PesoTotalEstoque")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("QtdEstoque")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TpMedida")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ValorTotalEstoque")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VlUn")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("IdMateriaPrima");
+
+                    b.ToTable("MateriasPrimas");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Produto", b =>
@@ -174,42 +210,6 @@ namespace LojaApp.Migrations
                     b.HasIndex("IdCategoria");
 
                     b.ToTable("Produtos");
-                });
-
-            modelBuilder.Entity("LojaApp.Models.Produtos.MateriaPrima", b =>
-                {
-                    b.Property<string>("IdMateriaPrima")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<decimal>("PesoTotalEstoque")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("QtdEstoque")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TpMedida")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ValorTotalEstoque")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("VlUn")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdMateriaPrima");
-
-                    b.ToTable("MateriaPrimas");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Users.ApplicationUser", b =>
@@ -467,19 +467,19 @@ namespace LojaApp.Migrations
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Ingrediente", b =>
                 {
-                    b.HasOne("LojaApp.Models.Produtos.Produto", "Produto")
-                        .WithMany("ListaIngredientes")
-                        .HasForeignKey("IdProduto")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("LojaApp.Models.Produtos.MateriaPrima", "MateriaPrima")
                         .WithMany()
                         .HasForeignKey("IdMateriaPrima")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("Produto");
+                    b.HasOne("LojaApp.Models.Produtos.Produto", "Produto")
+                        .WithMany("ListaIngredientes")
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("MateriaPrima");
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Produto", b =>

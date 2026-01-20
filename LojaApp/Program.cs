@@ -25,9 +25,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope()) 
-{ 
-    var services = scope.ServiceProvider;
-    await IdentitySeed.CriarPerfis(services);
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>(); 
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    await Seeder.SeedAsync(userManager, roleManager);
 }
 
 // Configure the HTTP request pipeline.
@@ -50,6 +52,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
