@@ -34,7 +34,7 @@
                         <p class="card-text text-center">Peso: @produto.PesoProduto @produto.medidaEnum.ToString()</p>
                         <p class="card-text preco text-center">Preço: R$ @produto.Preco</p>
                         <div class="mt-auto text-center">
-                            <a href="#" class="btn btn-loja">Comprar</a>
+                            <a asp-page="./Pedido" asp-route-id="@produto.IdProduto" class="btn btn-loja">Comprar</a>
                         </div>
                     </div>
                 </div>
