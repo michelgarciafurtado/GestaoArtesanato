@@ -16,46 +16,72 @@
 
             <div class="card shadow-sm"> 
                 <form method="post">
+                <div class="card-header bg-primary text-white">
+                    <h4>Dados de Contato</h4>
+                </div>
+                <div class="card-body">
+                    <div class="col-md-6">
+                        <label class="form-label">Nome</label>
+                        <span asp-validation-for="SolicitacaoProduto.Nome" class="text-danger" />
+                        <input class="form-control" asp-for="SolicitacaoProduto.Nome" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Contato</label>
+                        <span asp-validation-for="SolicitacaoProduto.CelContato" class="text-danger" />
+                        <input class="form-control" asp-for="SolicitacaoProduto.CelContato" />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Quantidade</label>
+                        <span asp-validation-for="SolicitacaoProduto.quantidade" class="text-danger" />
+                        <input class="form-control" asp-for="@Model.SolicitacaoProduto.quantidade" />
+                    </div>
+                </div>
+                
                 <div class="card-header bg-primary text-white"> 
                     <h4>Detalhes do Produto</h4> 
-                    </div> 
+                </div> 
                     <div class="card-body"> 
                         <div class="row mb-3">
                             <div class="col-md-6"> 
-                                <label class="form-label">Nome</label>
-                                <input class="form-control" value="@Model.Produto.NomeProduto" readonly /> 
-                                </div> <div class="col-md-6"> <label class="form-label">Categoria</label>
-                                    <input class="form-control" value="@Model.Produto.Categoria?.Descricao" readonly />
-                                    </div> </div> <div class="row mb-3"> <div class="col-md-12"> 
+                            <input type="hidden" asp-for="SolicitacaoProduto.IdProduto" value="@Model.SolicitacaoProduto.Produto.IdProduto"/>
+                                <label class="form-label">Produto</label>
+                                <input class="form-control" value="@Model.SolicitacaoProduto.Produto.NomeProduto" readonly />
+                                </div>
+                                <div class="col-md-6"> <label class="form-label">Categoria</label>
+                                    <input class="form-control" readonly />
+                                </div>
+                             </div> 
+                             <div class="row mb-3">
+                                 <div class="col-md-12"> 
                                         <label class="form-label">Descrição</label>
-                                        <textarea class="form-control" rows="2" readonly>@Model.Produto.Descricao</textarea>
+                            <textarea class="form-control" rows="2" readonly>@Model.SolicitacaoProduto.Produto.Descricao</textarea>
                                     </div> 
                                     </div> 
                                     <div class="row mb-3"> 
                                         <div class="col-md-4"> 
                                             <label class="form-label">Peso</label> 
-                                            <input class="form-control" value="@Model.Produto.PesoProduto" readonly />
+                            <input class="form-control" value="@Model.SolicitacaoProduto.Produto.PesoProduto" readonly />
                                         </div>
                                         <div class="col-md-4"> 
                                             <label class="form-label">Medida</label>
-                                            <input class="form-control" value="@Model.Produto.medidaEnum" readonly /> 
+                            <input class="form-control" value="@Model.SolicitacaoProduto.Produto.medidaEnum" readonly />
                                         </div> 
                                         <div class="col-md-4"> 
                                             <label class="form-label">Preço</label> 
-                                            <input class="form-control" value="@Model.Produto.Preco.ToString("C")" readonly /> 
+                            <input class="form-control" value="@Model.SolicitacaoProduto.Produto.Preco.ToString("C")" readonly />
                                         </div> 
-                                        </div> 
+                                    </div> 
                                         <div class="row mb-3">
                                             <div class="col-md-12 text-center"> 
-                                                @if (!string.IsNullOrEmpty(Model.Produto.UrlImg))
+                                                 @if (!string.IsNullOrEmpty(Model.SolicitacaoProduto.Produto.UrlImg))
                                                 { 
-                                                    <img src="@Model.Produto.UrlImg" alt="Imagem do Produto" class="img-fluid rounded shadow-sm" style="max-height:250px;" />
+                                                     <img src="@Model.SolicitacaoProduto.Produto.UrlImg" alt="Imagem do Produto" class="img-fluid rounded shadow-sm" style="max-height:250px;" />
                                                 } 
                                              </div>
                                         </div> 
                                         <div class="row mb-3">
                                         <div class="row mb-3">
-                                            <button type="submit" name="name" class="btn btn alert-success">Enviar Pedido</button>
+                                            <button type="submit" name="name" class="btn btn-success">Enviar Pedido</button>
                                         </div>  
                                         </div>
                                       </div> 

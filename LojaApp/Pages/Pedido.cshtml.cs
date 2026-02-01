@@ -9,10 +9,7 @@ namespace LojaApp.Pages
     public class PedidoModel : PageModel
     {
         [BindProperty]
-        public Models.Pedidos.SolicitacaoProduto SolicitacaoProduto { get; set; }
-        [BindProperty]
-
-        public Produto Produto { get; set; }
+        public Models.Pedidos.SolicitacaoProduto SolicitacaoProduto { get; set; } = new Models.Pedidos.SolicitacaoProduto();
 
         private readonly Data.AppDbContext _context;
 
@@ -25,11 +22,16 @@ namespace LojaApp.Pages
         {
             if (id == null)
                 return NotFound();
-            Produto = await _context.Produtos
+
+            Produto Produto = await _context.Produtos
                 .Include(p => p.Categoria)
                 .FirstOrDefaultAsync(p => p.IdProduto == id);
+            
             if (Produto == null)
                 return NotFound();
+            
+            SolicitacaoProduto.Produto = Produto;
+
             return Page();
         }
 
@@ -37,15 +39,23 @@ namespace LojaApp.Pages
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            string mensagem = $"Olá, gostaria de fazer um pedido:%0A" +
-                              $"Nome: {SolicitacaoProduto.Nome}%0A" +
-                              $"Contato: {SolicitacaoProduto.CelContato}%0A" +
-                              $"Produto: {SolicitacaoProduto.NomeProduto}%0A" +
-                              $"Quantidade: {SolicitacaoProduto.quantidade}%0A" +
+
+            SolicitacaoProduto.Produto = await _context.Produtos
+                .Include(p => p.Categoria)
+                .FirstOrDefaultAsync(p => p.IdProduto == SolicitacaoProduto.IdProduto);
+            
+            string mensagem = $"Olá, gostaria de fazer um pedido:\n" +
+                              $"Nome: {SolicitacaoProduto.Nome}\n" +
+                              $"Contato: {SolicitacaoProduto.CelContato}\n" +
+                              $"Produto: {SolicitacaoProduto.Produto.NomeProduto}\n" +
+                              $"Quantidade: {SolicitacaoProduto.quantidade}\n" +
                               $"Data do Pedido: {SolicitacaoProduto.DataPedido.ToString("dd/MM/yyyy")}";
-            string mensagemCodificada = Uri.EscapeDataString(mensagem);
-            string linkWhatsApp = $"https://wa.me/15981230946?text={mensagemCodificada}";
-            return Page();
+
+            string mensagemCodificada = Uri.EscapeDataString(mensagem); 
+            
+            string linkWhatsApp = $"https://wa.me/5511997206113?text={mensagemCodificada}";
+            // Redireciona direto para o WhatsApp
+            return Redirect(linkWhatsApp);
         }
     }
 }

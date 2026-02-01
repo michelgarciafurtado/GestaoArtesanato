@@ -5,9 +5,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAuthorization(options => 
+    { 
+        options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    }
+);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/Admin","Admin");
+}
+);
 
 builder.Services.AddDbContextFactory<AppDbContext>(options =>
                      options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
