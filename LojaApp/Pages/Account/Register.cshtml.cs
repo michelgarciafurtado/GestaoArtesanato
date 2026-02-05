@@ -16,7 +16,7 @@ namespace LojaApp.Pages.Admin.Account
         {
             if (_signInManager.IsSignedIn(User))
             {
-                return RedirectToPage("/Admin/Dashboard/Index");
+                return RedirectToPage("/Index");
             }
             return Page();
         }
