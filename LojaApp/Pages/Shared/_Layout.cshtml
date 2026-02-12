@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -40,6 +41,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Admin/CrudEntradaMateriais/Index">Entrada de Matéria-Prima</a>
                         </li>
+                        }
+                        </ul>
+                    <ul class="navbar-nav ms-auto">
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <div class="d-flex flex-column align-items-end">
+                                    <span class="small fw-bold"><small>Bem-vindo, @User.Identity.Name!</small></span>
+                                    <span class="small text-muted"><small>Email: @User.FindFirstValue(ClaimTypes.Email)</small></span>
+                                </div>
+                            </li>
+                            <li class="nav-item  ms-5">
+                                <form asp-area="Identity" asp-page="/Account/Logout" method="post" class="mt-1">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">Sair</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item d-flex align-items-end me-3">
+                                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-sm">Entrar</a>
+                            </li>
                         }
                     </ul>
                 </div>
