@@ -13,6 +13,7 @@ namespace LojaApp.Data
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Ingrediente> Ingredientes { get; set; }
         public DbSet<LojaApp.Models.Produtos.Custos> Custos { get; set; } = default!;
+        public DbSet<ImagemProduto> ImagensProdutos { get; set; }
         public DbSet<MateriaPrima> MateriasPrimas { get; set; }
         public DbSet<EntradaMaterial> Entradas { get; set; }
 

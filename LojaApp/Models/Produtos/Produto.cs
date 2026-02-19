@@ -26,6 +26,7 @@ public class Produto
     public string? UrlImg { get; set; }
     [Precision(18, 2)]
     public decimal Preco { get; set; }
+    public List<ImagemProduto>? ListaImgs { get; set; } = new List<ImagemProduto>();
     public List<Ingrediente>? ListaIngredientes { get; set; } = new List<Ingrediente>();
     public List<Custos>? ListaCustos { get; set; } = new List<Custos>();
     [Precision(18, 2)]

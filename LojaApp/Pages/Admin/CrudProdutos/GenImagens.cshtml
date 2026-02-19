@@ -1,0 +1,122 @@
+﻿@page
+@model LojaApp.Pages.Admin.CrudProdutos.GenImagensModel
+@{
+    ViewData["Title"] = "Editar Produto";
+}
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mensagem"]
+    </div>
+}
+
+<h4 class="mb-3">Adicionar Imagens Produto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" enctype="multipart/form-data" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Campo oculto-->
+                <input type="hidden"  asp-for="AdicionarImagem.Id" class="form-control" />
+            
+            <div class="form-group mb-3">
+                <label asp-for="AdicionarImagem.Nome" class="control-label"></label>
+                <input asp-for="AdicionarImagem.Nome" class="form-control" />
+                <span asp-validation-for="AdicionarImagem.Nome" class="text-danger"></span>
+            </div>
+
+            <!-- INICIO Form-Group Imagem -->
+            <div class="form-group mb-4">
+                <div class="d-flex gap-3">
+                    <div class="flex-fill">
+                        <label>Imagem</label>
+                        <input type="file"
+                            asp-for="AdicionarImagem.ImagemFile"
+                            class="form-control" 
+                            onchange="previewImage(event)" />
+                    </div>
+                    <div class="flex-fill text-center">
+                        <label>Preview</label><br />
+                        <img src="@(Model.AdicionarImagem.ImgUrl ?? "")"
+                             alt="Imagem do produto"
+                             id="preview"
+                             class="img-thumbnail"
+                             style="width:150px; height:150px; object-fit:cover;" />
+                        <input type="hidden" asp-for="AdicionarImagem.ImgUrl" />
+                    </div>
+                </div>
+            </div>
+            <!-- FIM Form-Group Imagem -->
+            <div class="form-group">
+                <button type="submit"
+                        value="Salvar"
+                        asp-page-handler="AddImagem"
+                        class="btn btn-success">
+                    Salvar
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+                        <path d="M11 2H9v3h2z" />
+                        <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+                    </svg>
+
+                </button>
+            </div>
+        </form>
+            <table class="table table-striped table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th> </th>
+                        <th>IdImagem</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if (Model.AdicionarImagem.Imagens.Any())
+                    {
+                        foreach (var imagem in Model.AdicionarImagem.Imagens)
+                        {
+                            <tr>
+                            <td><img src="@imagem.ImgUrl" style="width: 20px" /></td>
+                                <td>@imagem.Produto.NomeProduto</td>
+                                <td>
+                                    <form method="post">
+                                    <button type="submit" asp-page-handler="DeleteImagem"
+                                            asp-route-IdImagem="@imagem.IdImagem"
+                                            asp-route-IdProduto="@imagem.IdProduto"
+                                            class="btn btn-danger">
+                                        Excluir
+                                    </button>
+                                    </form>
+                                    
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">Nenhuma imagem cadastrada</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        
+    </div>
+ </div>
+
+ <script>
+     function previewImage(event) {
+        var input = event.target;
+        var preview = document.getElementById('preview');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+ </script>
+            
+

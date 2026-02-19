@@ -4,6 +4,7 @@ using LojaApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LojaApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260215205903_ListaImagens")]
+    partial class ListaImagens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,9 +177,13 @@ namespace LojaApp.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<string>("ProdutoIdProduto")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
                     b.HasKey("IdImagem");
 
-                    b.HasIndex("IdProduto");
+                    b.HasIndex("ProdutoIdProduto");
 
                     b.ToTable("ImagensProdutos");
                 });
@@ -677,13 +684,9 @@ namespace LojaApp.Migrations
 
             modelBuilder.Entity("LojaApp.Models.Produtos.ImagemProduto", b =>
                 {
-                    b.HasOne("LojaApp.Models.Produtos.Produto", "Produto")
+                    b.HasOne("LojaApp.Models.Produtos.Produto", null)
                         .WithMany("ListaImgs")
-                        .HasForeignKey("IdProduto")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
+                        .HasForeignKey("ProdutoIdProduto");
                 });
 
             modelBuilder.Entity("LojaApp.Models.Produtos.Ingrediente", b =>
