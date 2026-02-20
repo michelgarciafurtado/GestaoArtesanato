@@ -1,0 +1,79 @@
+﻿@page
+@model LojaApp.Pages.DetalhesProdutoModel
+@{
+    ViewData["Title"] = "Detalhes do Produto";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row produto-card p-4 shadow-sm">
+
+        <div class="col-md-6 mb-4">
+            <div class="position-relative">
+                <img src="@(string.IsNullOrEmpty(Model.Product.UrlImgPrincipal) ? "/img/sem-foto.png" : Model.Product.UrlImgPrincipal)"
+                     class="img-fluid rounded shadow-sm w-100 produto-img-detalhe"
+                     alt="@Model.Product.NomeProduto">
+            </div>
+
+            @if (Model.Product.Imagens != null && Model.Product.Imagens.Any())
+            {
+                <div class="d-flex mt-3 gap-2 overflow-auto">
+                    @foreach (var urlImg in Model.Product.Imagens)
+                    {
+                        <img src="@urlImg" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="col-md-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-page="./Index" class="text-muted text-decoration-none">Loja</a></li>
+                    <li class="breadcrumb-item active text-brown" aria-current="page">@Model.Product.Categoria?</li>
+                </ol>
+            </nav>
+
+            <h1 class="loja-titulo mb-2">@Model.Product.NomeProduto</h1>
+            <p class="text-muted mb-4">@Model.Product.Descricao</p>
+
+            <div class="d-flex align-items-center mb-4">
+                <span class="preco fs-2 me-3">R$ @Model.Product.Preco.ToString("F2")</span>
+                <span class="badge bg-secondary p-2">
+                    @Model.Product.Peso @Model.Product.Medida
+                </span>
+            </div>
+
+            <hr />
+
+            @if (Model.Product.Ingredientes != null && Model.Product.Ingredientes.Any())
+            {
+                <div class="mb-4">
+                    <h5 class="loja-titulo" style="font-size: 1.1rem;">Ingredientes:</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach (var ing in Model.Product.Ingredientes)
+                        {
+                            <span class="badge border text-dark fw-normal" style="background-color: #fdfaf8;">
+                                @ing
+                            </span>
+                        }
+                    </div>
+                </div>
+            }
+
+            <div class="d-grid gap-2 d-md-flex mt-5">
+                <button class="btn btn-loja-banner flex-grow-1">
+                    <i class="bi bi-cart-plus"></i> Adicionar ao Carrinho
+                </button>
+                <a asp-page="./Index" class="btn btn-outline-secondary rounded-pill px-4">
+                    Voltar
+                </a>
+            </div>
+
+            <div class="mt-auto text-center">
+                <a asp-page="./Pedido" asp-route-id="@Model.Product.IdProduto" class="btn btn-loja">Comprar</a>
+            </div>
+
+
+        </div>
+    </div>
+</div>

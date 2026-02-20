@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Policy;
 
 namespace LojaApp.Models.Produtos;
 
@@ -61,5 +62,33 @@ public class Produto
         {
             throw;
         }  
+    }
+
+    public List<string> GetUrlImgs()
+    {
+        if (ListaImgs != null && ListaImgs.Count > 0)
+        {
+            return ListaImgs.Select(i => i.ImgUrl).ToList();
+        }
+        else if (!string.IsNullOrEmpty(UrlImg))
+        {
+            return new List<string> { UrlImg };
+        }
+        else
+        {
+            return new List<string>();
+        }
+    }
+
+    public List<string> GetIngredientes()
+    {
+        if (ListaIngredientes != null && ListaIngredientes.Count > 0)
+        {
+            return ListaIngredientes.Select(i => i.MateriaPrima.Descricao).ToList();
+        }
+        else
+        {
+            return new List<string>();
+        }
     }
 }

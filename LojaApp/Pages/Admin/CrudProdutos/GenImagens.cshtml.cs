@@ -80,7 +80,7 @@ public class GenImagensModel : PageModel
         }
         else
         {
-            Mensagem = "Imagem não salva!";
+            Mensagem = "Não foi possível salvar a Imagem!";
         }
         var produtoAtualizado = await _context.Produtos.
             Include(p => p.ListaImgs).

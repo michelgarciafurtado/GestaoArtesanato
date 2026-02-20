@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LojaApp.Pages.CrudProdutos
 {
@@ -49,6 +50,13 @@ namespace LojaApp.Pages.CrudProdutos
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
+                    var caminhoArquivo = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath.TrimStart('/'));
+                    //Se o arquivo físico já existir, deleta para evitar duplicidade
+                    if (System.IO.File.Exists(caminhoArquivo))
+                    {
+                        //deleta o arquivo fisico no servidor
+                        System.IO.File.Delete(caminhoArquivo);
+                    }
                     await ImagemUpload.CopyToAsync(stream);
                 }
 
