@@ -97,3 +97,11 @@ body {
     .btn-loja:hover {
         background-color: #6d472c;
     }
+/*Imagem principal de detalhes produto*/
+.produto-img-detalhe {
+    width: 25vw; /* 1/4 da largura da tela */
+    aspect-ratio: 4 / 3; /* proporção largura:altura (exemplo 4:3) */
+    object-fit: cover; /* mantém proporção e corta excesso */
+    display: block;
+    margin: 0 auto; /* centraliza horizontalmente */
+}

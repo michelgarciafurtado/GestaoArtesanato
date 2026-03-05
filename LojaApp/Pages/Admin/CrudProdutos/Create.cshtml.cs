@@ -52,11 +52,11 @@ namespace LojaApp.Pages.CrudProdutos
                 {
                     var caminhoArquivo = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath.TrimStart('/'));
                     //Se o arquivo físico já existir, deleta para evitar duplicidade
-                    if (System.IO.File.Exists(caminhoArquivo))
-                    {
-                        //deleta o arquivo fisico no servidor
-                        System.IO.File.Delete(caminhoArquivo);
-                    }
+                    //if (System.IO.File.Exists(caminhoArquivo))
+                    //{
+                    //    //deleta o arquivo fisico no servidor
+                    //    System.IO.File.Delete(caminhoArquivo);
+                    //}
                     await ImagemUpload.CopyToAsync(stream);
                 }
 
