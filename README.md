@@ -12,7 +12,7 @@
   <li>[x] - Painel com separação para gestão do sistema</li>
 </ol>
 
-<h2>Fase 1</h2>
+<h2>Fase 2</h2>
 <ol>
   <li>[ ] - Cadastrar Compradores e pedidos</li>
   <li>[ ] - Ao Atualizar o pedido para o status "Aceito" enviar email com os dados do pedido ao cliente</li>
