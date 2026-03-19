@@ -25,6 +25,7 @@ public class Ingrediente
     public decimal QtdIngrediente { get; set; }
     public decimal CalcularCustoIngrediente()
     {
-        return QtdIngrediente * MateriaPrima.VlUn;
+        var custo = QtdIngrediente * MateriaPrima.VlUn;
+        return Math.Round(custo,2);
     }
 }

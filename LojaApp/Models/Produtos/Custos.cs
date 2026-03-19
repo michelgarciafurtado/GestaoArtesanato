@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +9,7 @@ namespace LojaApp.Models.Produtos
         [Key] 
         public string IdCusto { get; set; } = Guid.NewGuid().ToString();
         [Required]
+        [Display(Name = "Descrição do Custo")]
         public string DescricaoCusto { get; set; } = string.Empty;
         [Precision(18, 2)]
         [Display(Name = "Valor R$")]

@@ -5,20 +5,18 @@
         ViewData["Title"] = "Create";
         }
         
-        <h1>Criar</h1>
-        
-    <h4>Custos</h4>
-    <hr />
+        <h1 class="mb-3">Adicionar Custo</h1>
+        <br/>        
     <div class="row">
     <div class="col-md-4">
     <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input type="text" asp-for="Custos.IdProduto" class="form-control" />
+                <input type="hidden" asp-for="Custos.IdProduto" class="form-control" />
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
-                <label asp-for="Custos.DescricaoCusto" class="control-label"></label>
+                <label asp-for="Custos.DescricaoCusto" class="control-label">Descrição do Custo</label>
                 <input asp-for="Custos.DescricaoCusto" class="form-control" aria-required="true"/>
                 <span asp-validation-for="Custos.DescricaoCusto" class="text-danger"></span>
             </div>
