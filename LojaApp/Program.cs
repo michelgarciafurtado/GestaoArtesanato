@@ -19,7 +19,7 @@ builder.Services.AddRazorPages(options =>
 );
 
 builder.Services.AddDbContextFactory<AppDbContext>(options =>
-                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
+                     options.UseSqlServer(builder.Configuration.GetConnectionString("WorkConnection")
                      ?? throw new InvalidOperationException("Nao encontrou a string de conexao")
                       )
 );
