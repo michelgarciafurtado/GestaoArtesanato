@@ -26,6 +26,7 @@ public class Produto
     public TpMedidaEnum medidaEnum { get; set; }
     public string? UrlImg { get; set; }
     [Precision(18, 2)]
+    [Display(Name = "Preço. R$")]
     public decimal Preco { get; set; }
     public List<ImagemProduto>? ListaImgs { get; set; } = new List<ImagemProduto>();
     public List<Ingrediente>? ListaIngredientes { get; set; } = new List<Ingrediente>();

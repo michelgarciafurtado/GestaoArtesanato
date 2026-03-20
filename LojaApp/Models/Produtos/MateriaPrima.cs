@@ -11,6 +11,7 @@ public class MateriaPrima
     public  string IdMateriaPrima { get; set; } = Guid.NewGuid().ToString();
     public string Descricao { get; set; }
     [Precision(18,2)]
+    [Display(Name = "Valor Un. R$")]
     public decimal VlUn { get; set; }
     public TpMedidaEnum TpMedida { get; set; }
     [Precision(18,2)]

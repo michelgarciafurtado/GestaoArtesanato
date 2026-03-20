@@ -5,10 +5,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1 class="mb-3">Gerenciamento de Materias-Primas</h1>
+<hr />
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-success">Adicionar</a>
 </p>
 <table class="table">
     <thead>
@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.ListMateriaPrima[0].Descricao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ListMateriaPrima[0].VlUn)
+               @Html.DisplayNameFor(model => model.ListMateriaPrima[0].VlUn)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ListMateriaPrima[0].TpMedida)
@@ -32,15 +32,15 @@
                 @Html.DisplayFor(modelItem => item.Descricao)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VlUn)
+                    R$  @Html.DisplayFor(modelItem => item.VlUn)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TpMedida)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.IdMateriaPrima">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.IdMateriaPrima">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.IdMateriaPrima">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.IdMateriaPrima" class="btn btn-light">Editar</a> |
+                    <a asp-page="./Details" asp-route-id="@item.IdMateriaPrima" class="btn btn-info">Detalhes</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.IdMateriaPrima" class="btn btn-danger">Deletar</a>
             </td>
         </tr>
 }
