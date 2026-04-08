@@ -17,4 +17,5 @@
   <li>[ ] - Cadastrar Compradores e pedidos</li>
   <li>[ ] - Ao Atualizar o pedido para o status "Aceito" enviar email com os dados do pedido ao cliente</li>
   <li>[ ] - Atualizar o estoque dando baixa nas matérias-primas ao atualizar o pedido para o status "Pronto"</li>
+  <li>[ ] - Desenvolver log com Middleware</li>
 </ol>
