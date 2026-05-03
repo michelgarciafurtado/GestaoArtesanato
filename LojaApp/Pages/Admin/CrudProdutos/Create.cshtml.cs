@@ -1,5 +1,6 @@
 using LojaApp.Data;
 using LojaApp.Models.Produtos;
+using LojaApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ namespace LojaApp.Pages.CrudProdutos;
 public class CreateModel : PageModel
 {
     private readonly AppDbContext _context;
+    private readonly GenImagensService _genImagensService;
     [BindProperty]
     public Produto Produto { get; set; } = default!;
     [BindProperty]
@@ -19,11 +21,13 @@ public class CreateModel : PageModel
     public string Mensagem { get; set; } = default!;
     public SelectList SelectCategoria { get; set; } = default!;
 
-    public readonly IWebHostEnvironment _env;
-    public CreateModel(AppDbContext context, IWebHostEnvironment env)
+
+
+    
+    public CreateModel(AppDbContext context, GenImagensService genImagensService)
     {
         _context = context;
-        _env = env;
+        _genImagensService = genImagensService;
     }
     public async Task  OnGetAsync()
     {
@@ -44,35 +48,11 @@ public class CreateModel : PageModel
     {
         if (ImagemUpload != null)
         {
-            var ext = Path.GetExtension(ImagemUpload.FileName);
-
-            if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".webp")
-            {
-                ModelState.AddModelError("ImagemUpload", "Apenas arquivos .jpg, .jpeg, .png e .webp são permitidos.");
-                return Page();
-            }
-            var fileName = ParaUrlAmigavel(Produto.NomeProduto.Trim() + ext);
-
-            var filePath = Path.Combine(_env.WebRootPath, "Imagens/Produtos", fileName.Trim());
-
-            if (!Directory.Exists(_env.WebRootPath + "Imagens/Produtos"))
-            {
-                Directory.CreateDirectory(_env.WebRootPath + "Imagens/Produtos");
-            }
-
             try
             {
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
+                var imagem = _genImagensService.UploadImagem(ImagemUpload, Produto.NomeProduto, "ImgPathProduto");
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await ImagemUpload.CopyToAsync(stream);
-                }
-
-                Produto.UrlImg = $"/Imagens/Produtos/{fileName}";
+                Produto.UrlImg = imagem;
             }
             catch (Exception ex)
             {
@@ -86,16 +66,5 @@ public class CreateModel : PageModel
         return RedirectToPage("./Index");
     }
 
-    private string ParaUrlAmigavel(string name)
-    {
-        // Remove acentos
-        var bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(name);
-        string cleanName = System.Text.Encoding.ASCII.GetString(bytes);
-
-        // Remove espaços e deixa minúsculo
-        cleanName = cleanName.Replace(" ", "-").ToLower();
-
-        // Remove qualquer coisa que não seja letra, número ou traço
-        return System.Text.RegularExpressions.Regex.Replace(cleanName, @"[^a-z0-9\-\.]", "");
-    }
+    
 }

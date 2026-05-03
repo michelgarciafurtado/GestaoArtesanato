@@ -19,7 +19,7 @@ builder.Services.AddRazorPages(options =>
 );
 
 builder.Services.AddDbContextFactory<AppDbContext>(options =>
-                     options.UseSqlServer(builder.Configuration.GetConnectionString("WorkConnection")
+                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
                      ?? throw new InvalidOperationException("Nao encontrou a string de conexao")
                       )
 );
@@ -30,6 +30,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
     }) 
     .AddEntityFrameworkStores<AppDbContext>() //usa minha classe de contexto para acesso aos dados
     .AddDefaultTokenProviders();
+
+builder.Services.AddServicosUtilitarios();
 
 var app = builder.Build();
 

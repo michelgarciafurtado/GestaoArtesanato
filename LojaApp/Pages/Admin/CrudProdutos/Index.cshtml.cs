@@ -1,5 +1,6 @@
 using LojaApp.Data;
 using LojaApp.Models.Produtos;
+using LojaApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -9,13 +10,16 @@ namespace LojaApp.Pages.CrudProdutos
     public class IndexModel : PageModel
     {
         private readonly AppDbContext _context;
+        private readonly GenImagensService _genImagensService;
         [BindProperty]
         public List<Produto> Produtos { get; set; } = default!;
         [TempData]
         public string Mensagem { get; set; } = default!;
-        public IndexModel(AppDbContext context)
+        
+        public IndexModel(AppDbContext context, GenImagensService genImagensService)
         {
             _context = context;
+            _genImagensService = genImagensService;
         }
         public async Task  OnGetAsync()
         {
@@ -54,6 +58,12 @@ namespace LojaApp.Pages.CrudProdutos
             {
                 _context.Custos.RemoveRange(produtoDb.ListaCustos);
             }
+            // Remover imagem associada
+            if (!string.IsNullOrEmpty(produtoDb.UrlImg))
+            {
+                _genImagensService.ExcluirImagem(produtoDb.UrlImg);
+            }
+
             _context.Produtos.Remove(produtoDb);
             await _context.SaveChangesAsync();
             Mensagem = "Produto removido com sucesso.";
