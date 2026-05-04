@@ -1,5 +1,6 @@
 using LojaApp.Data;
 using LojaApp.Models.Produtos;
+using LojaApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ namespace LojaApp.Pages.CrudProdutos
     public class EditarModel : PageModel
     {
         private readonly AppDbContext _context;
+        private readonly GenImagensService _genImagensService;
         [BindProperty]
         public Produto Produto { get; set; } = default!;
         [BindProperty]
@@ -18,9 +20,10 @@ namespace LojaApp.Pages.CrudProdutos
         public string Mensagem { get; set; } = default!;
         public SelectList SelectCategoria { get; set; } = default!;
 
-        public EditarModel(AppDbContext context)
+        public EditarModel(AppDbContext context, GenImagensService genImagensService)
         {
             _context = context;
+            _genImagensService = genImagensService;
         }
 
         public async Task<IActionResult> OnGetAsync(string IdProduto)
@@ -76,19 +79,17 @@ namespace LojaApp.Pages.CrudProdutos
             produtoDb.Preco = Produto.Preco;
             if (ImagemUpload != null)
             {
-                var ext = Path.GetExtension(ImagemUpload.FileName);
-                var fileName = Path.GetFileName(Produto.NomeProduto.Trim() + ext);
-
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(),
-                                            "wwwroot/Imagens/Produtos",
-                                            fileName.Trim());
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                try
                 {
-                    await ImagemUpload.CopyToAsync(stream);
-                }
+                    var imagem = _genImagensService.UploadImagem(ImagemUpload, produtoDb.NomeProduto, "ImgPathProduto");
 
-                produtoDb.UrlImg = "/Imagens/Produtos/" + fileName;
+                    produtoDb.UrlImg = imagem;
+                }
+                catch(Exception ex)
+                {
+                    Mensagem = "Erro ao Atualizar a imagem";
+                    throw ex;
+                }
             }
             else
             {

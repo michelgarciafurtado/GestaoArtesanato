@@ -35,6 +35,8 @@ builder.Services.AddServicosUtilitarios();
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 using (var scope = app.Services.CreateScope()) 
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>(); 
@@ -65,6 +67,13 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "Imagens")),
+    RequestPath = "/Imagens"
+});
 
 app.MapStaticAssets();
 app.MapRazorPages()
