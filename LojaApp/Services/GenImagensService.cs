@@ -19,7 +19,7 @@ public class GenImagensService
             throw new InvalidOperationException("Apenas arquivos .jpg, .jpeg, .png e .webp são permitidos.");
         }
 
-        var fileName = ParaUrlAmigavel(nomeImagem.Trim() + ext);
+        var fileName = ParaUrlAmigavel(nomeImagem.Trim()) + ext;
         var DirPath = _config[$"ImagensPath:{tipo}"];
 
         var filePath = Path.Combine(_env.WebRootPath, DirPath);
@@ -37,7 +37,7 @@ public class GenImagensService
             {
                 imagemUpload.CopyTo(stream);
             }
-            return Path.Combine(DirPath, fileName);
+            return Path.Combine(DirPath, fileName).Replace("\\","/");
         }
         catch (Exception ex) 
         {

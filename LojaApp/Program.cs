@@ -67,11 +67,16 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+var pastaImagens = Path.Combine(builder.Environment.WebRootPath, "Imagens");
+
+if (!Directory.Exists(pastaImagens))
+{
+    Directory.CreateDirectory(pastaImagens);
+}
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
-        Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "Imagens")),
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(pastaImagens),
     RequestPath = "/Imagens"
 });
 
