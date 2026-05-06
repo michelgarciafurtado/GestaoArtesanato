@@ -1,5 +1,6 @@
 ﻿using LojaApp.Data;
 using LojaApp.Models.Produtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace LojaApp.Pages.CrudCustosProdutos
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly LojaApp.Data.AppDbContext _context;

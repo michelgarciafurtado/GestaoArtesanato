@@ -1,4 +1,5 @@
 using LojaApp.Models.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LojaApp.Pages.Account;
 
+[Authorize(Policy = "Admin")]
 public class RegisterModel : PageModel
 {
     [BindProperty]
@@ -19,7 +21,7 @@ public class RegisterModel : PageModel
     }
     public IActionResult OnGet()
     {
-        if (_signInManager.IsSignedIn(User))
+        if (!_signInManager.IsSignedIn(User))
         {
             return RedirectToPage("/Index");
         }

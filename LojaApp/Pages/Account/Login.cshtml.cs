@@ -37,6 +37,7 @@ namespace LojaApp.Pages.Admin.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
+                ModelState.AddModelError(string.Empty, $"Usuário com email {Input.Email}.");
                 Mensagem = "Email nao encontrado!";
                 return Page();
             }
@@ -48,6 +49,7 @@ namespace LojaApp.Pages.Admin.Account
                           );
             if (result.Succeeded)
             {
+                var roles = await _userManager.GetRolesAsync(user);
                 return RedirectToPage("/Admin/CrudProdutos/Index");
             }
             else

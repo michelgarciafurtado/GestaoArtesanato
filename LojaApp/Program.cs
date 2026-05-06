@@ -5,13 +5,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+//Adiciona serviços de autenticação e autorização
 builder.Services.AddAuthorization(options => 
     { 
         options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
     }
 );
 
-// Add services to the container.
+// Restringe o acesso a todas as páginas dentro da pasta "Admin" para usuários com a role "Admin"
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Admin","Admin");
@@ -67,6 +68,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Configura o caminho para a pasta "Imagens" dentro de wwwroot
 var pastaImagens = Path.Combine(builder.Environment.WebRootPath, "Imagens");
 
 if (!Directory.Exists(pastaImagens))

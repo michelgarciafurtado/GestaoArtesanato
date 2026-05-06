@@ -7,38 +7,37 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LojaApp.Data;
 using LojaApp.Models.Produtos;
+using Microsoft.AspNetCore.Authorization;
 
-namespace LojaApp.Pages.Categorias
+namespace LojaApp.Pages.Categorias;
+public class CreateModel : PageModel
 {
-    public class CreateModel : PageModel
+    private readonly LojaApp.Data.AppDbContext _context;
+
+    public CreateModel(LojaApp.Data.AppDbContext context)
     {
-        private readonly LojaApp.Data.AppDbContext _context;
+        _context = context;
+    }
 
-        public CreateModel(LojaApp.Data.AppDbContext context)
-        {
-            _context = context;
-        }
+    public IActionResult OnGet()
+    {
+        return Page();
+    }
 
-        public IActionResult OnGet()
+    [BindProperty]
+    public Categoria Categoria { get; set; } = default!;
+
+    // For more information, see https://aka.ms/RazorPagesCRUD.
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
         {
             return Page();
         }
 
-        [BindProperty]
-        public Categoria Categoria { get; set; } = default!;
+        _context.Categorias.Add(Categoria);
+        await _context.SaveChangesAsync();
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Categorias.Add(Categoria);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
+        return RedirectToPage("./Index");
     }
 }
