@@ -18,6 +18,8 @@ namespace LojaApp.Pages
         public string Mensagem { get; set; }
         [BindProperty]
         public List<Produto> Produtos { get; set; }
+        [BindProperty]
+        public IndexViewModel IndexVM { get; } = new IndexViewModel();
         public async Task<ActionResult> OnGetAsync()
         {
             Produtos = await _context.Produtos
@@ -29,5 +31,14 @@ namespace LojaApp.Pages
             }
             return Page();
         }
+
     }
+
+    public record IndexViewModel(
+        string TextoCabecalho = @"<strong>Produto feito à mão, com o coração especialmente para você. ❤️</strong> 
+                                 
+                                 <em>Obrigado por apoiar o trabalho artesanal e por permitir que a gente leve um pouquinho do nosso carinho para dentro da sua casa!!!</em>.
+
+                                Aproveite seu momento!!!!"
+        );
 }

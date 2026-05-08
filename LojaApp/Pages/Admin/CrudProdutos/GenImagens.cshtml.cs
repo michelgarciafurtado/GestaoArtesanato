@@ -1,5 +1,6 @@
 using LojaApp.Data;
 using LojaApp.Models.Produtos;
+using LojaApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -15,10 +16,12 @@ public class GenImagensModel : PageModel
     [TempData]
     public string Mensagem { get; set; } = string.Empty;
     private readonly AppDbContext _context;
+    private readonly GenImagensService _genImagensService;
 
-    public GenImagensModel(AppDbContext context)
+    public GenImagensModel(AppDbContext context, GenImagensService genImagensService)
     {
         _context = context;
+        _genImagensService = genImagensService;
     }
 
     public async Task<IActionResult> OnGetAsync(string IdProduto)
@@ -59,28 +62,20 @@ public class GenImagensModel : PageModel
         // Instancia a classe Imagem e adiciona ao 
         if(AdicionarImagem.ImagemFile != null)
         {
-            var ext = Path.GetExtension(AdicionarImagem.ImagemFile.FileName);
-            var fileName = Path.GetFileName(AdicionarImagem.Nome.Trim() + "_" + GetNewToken() + ext);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(),
-                                            "wwwroot/Imagens/Produtos",
-                                            fileName.Trim());//monta o urlImg
+           
             var imagemProduto = new ImagemProduto
             {
                 IdProduto = AdicionarImagem.Id,
-                ImgUrl = "/Imagens/Produtos/" + fileName,
+                ImgUrl = _genImagensService.UploadImagem(AdicionarImagem.ImagemFile, AdicionarImagem.Nome+GetNewToken(), "ImgPathProduto")
             };
 
             _context.ImagensProdutos.Add(imagemProduto);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await AdicionarImagem.ImagemFile.CopyToAsync(stream);//grava o arquivo na pasta
-            }
 
         }
         else
         {
             Mensagem = "Não foi possível salvar a Imagem!";
+            return Page();
         }
         var produtoAtualizado = await _context.Produtos.
             Include(p => p.ListaImgs).
@@ -104,17 +99,10 @@ public class GenImagensModel : PageModel
         var imagem = await _context.ImagensProdutos.FirstOrDefaultAsync(i =>  i.IdImagem == Guid.Parse(IdImagem));
         if(imagem != null)
         {
-            var caminhoArquivo = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imagem.ImgUrl.TrimStart('/'));
-            if(System.IO.File.Exists(caminhoArquivo))
-            {
-                //deleta o arquivo fisico no servidor
-                System.IO.File.Delete(caminhoArquivo);
-
-                //deleta o registro da imagem no banco de dados
-                _context.ImagensProdutos.Remove(imagem);
-                await _context.SaveChangesAsync();
-                Mensagem = "Imagem deletada com sucesso!";
-            }
+            _genImagensService.ExcluirImagem(imagem.ImgUrl);    
+            _context.ImagensProdutos.Remove(imagem);
+            await _context.SaveChangesAsync();
+            Mensagem = "Imagem deletada com sucesso!";
         }
         else
         {

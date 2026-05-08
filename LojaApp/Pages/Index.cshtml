@@ -1,13 +1,15 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Melius Saboaria Artesanal";
+    ViewData["Title"] = "Mellius - Saboaria Artesanal";
 }
 
 
 <div class="destaque-loja text-center py-5">
-    <h1 class="display-4 loja-titulo">Melius Saboaria Artesanal</h1>
-    <p class="loja-subtitulo">Produtos artesanais feitos com carinho</p>
+    <h1 class="display-4 loja-titulo">Mellius Saboaria Artesanal</h1>
+    <p class="loja-subtitulo">
+        @Html.Raw(@Model.IndexVM.TextoCabecalho)
+    </p>
     <a href="#produtos" class="btn btn-loja-banner">Descubra agora</a>
 </div>
 

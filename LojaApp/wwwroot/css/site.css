@@ -44,7 +44,15 @@ body {
 .loja-subtitulo {
     font-family: 'Arial', sans-serif;
     color: #7a5c48;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    white-space: pre-line;
+    font-size: 1.25rem; /* Isso equivale a cerca de 20px */
+    line-height: 1.6; /* Aumenta o espaçamento entre linhas */
+    
+    /* centraliza e limita a largura */
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .btn-loja-banner {
