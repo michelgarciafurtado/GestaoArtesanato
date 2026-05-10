@@ -24,23 +24,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Perfil">A Artesã</a>
-                        </li>
+                         @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Perfil">A Artesã</a>
+                            </li>
+                        }
                         @if (User.IsInRole("Admin"))
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/CrudProdutos/Index">Produtos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Categorias/Index">Categorias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/CrudMateriaPrima/Index">MateriasPrimas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/CrudEntradaMateriais/Index">Entrada de Matéria-Prima</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/CrudProdutos/Index">Produtos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Categorias/Index">Categorias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/CrudMateriaPrima/Index">MateriasPrimas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/CrudEntradaMateriais/Index">Entrada de Matéria-Prima</a>
+                            </li>
                         }
                         </ul>
                     <ul class="navbar-nav ms-auto">
@@ -61,7 +64,7 @@
                         else
                         {
                             <li class="nav-item d-flex align-items-end me-3">
-                                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-sm">Entrar</a>
+                                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-dark btn-sm">Entrar</a>
                             </li>
                         }
                     </ul>
