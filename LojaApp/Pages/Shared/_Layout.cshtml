@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,9 +13,12 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Melius Saboaria</a>
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-page="/Index">
+                    <img src="~/Imagens/logo.jpeg" alt="Bootstrap" width="50" height="44" class="rounded-circle me-2">
+                    <span>Mellius Saboaria</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,7 +28,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                         @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Perfil">A Artesã</a>
@@ -45,9 +49,9 @@
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/CrudEntradaMateriais/Index">Entrada de Matéria-Prima</a>
                             </li>
                         }
-                        </ul>
+                    </ul>
                     <ul class="navbar-nav ms-auto">
-                        @if(User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <div class="d-flex flex-column align-items-end">
@@ -72,6 +76,22 @@
             </div>
         </nav>
     </header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow sticky-top">
+        <div class="container">
+            <div class="flex-row flex-nowrap mx-auto">
+                <ul id="menu-categorias" class="navbar-nav flex-row flex-nowrap mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Sabonetes em Barra</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Sabonetes Líquidos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Geléia de Banho</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Body Splash</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Sachês Perfumados</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Hidrantes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Kits Presenteáveis</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
