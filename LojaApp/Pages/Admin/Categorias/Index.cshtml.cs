@@ -20,6 +20,8 @@ namespace LojaApp.Pages.Categorias
         }
 
         public IList<Categoria> Categoria { get;set; } = default!;
+        public string MensagemErro { get; set; } = string.Empty;
+        public string MensagemSucesso { get; set; } = string.Empty;
 
         public async Task OnGetAsync()
         {

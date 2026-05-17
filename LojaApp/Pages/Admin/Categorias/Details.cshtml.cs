@@ -20,11 +20,14 @@ namespace LojaApp.Pages.Categorias
         }
 
         public Categoria Categoria { get; set; } = default!;
+        public string MensagemErro { get; set; } = string.Empty;
+        public string MensagemSucesso { get; set; } = string.Empty;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
+                MensagemErro = "Id da categoria não fornecido.";
                 return NotFound();
             }
 

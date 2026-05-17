@@ -22,6 +22,8 @@ namespace LojaApp.Pages.Categorias
 
         [BindProperty]
         public Categoria Categoria { get; set; } = default!;
+        public string MensagemErro { get; set; } = string.Empty;
+        public string MensagemSucesso { get; set; } = string.Empty;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {

@@ -4,10 +4,16 @@
 @{
     ViewData["Title"] = "Novo Produto";
 }
-@if(TempData["Mensagem"] != null)
+@if (!string.IsNullOrEmpty(Model.MensagemErro))
+{
+    <div class="alert alert-danger">
+        @Model.MensagemErro
+    </div>
+}
+@if (!string.IsNullOrEmpty(Model.MensagemSucesso))
 {
     <div class="alert alert-success">
-        @TempData["Mensagem"]
+        @Model.MensagemSucesso
     </div>
 }
 

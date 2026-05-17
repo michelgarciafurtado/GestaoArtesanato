@@ -26,12 +26,14 @@ public class CreateModel : PageModel
 
     [BindProperty]
     public Categoria Categoria { get; set; } = default!;
+    public string MensagemErro { get; set; } = string.Empty;
 
     // For more information, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
         {
+            MensagemErro = "Dados inválidos. Por favor, corrija os erros e tente novamente.";
             return Page();
         }
 

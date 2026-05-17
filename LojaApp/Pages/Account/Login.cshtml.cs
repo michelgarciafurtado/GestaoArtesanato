@@ -19,7 +19,7 @@ namespace LojaApp.Pages.Admin.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
-        [TempData]
+       
         public string Mensagem { get; set; }
         public class InputModel
         {

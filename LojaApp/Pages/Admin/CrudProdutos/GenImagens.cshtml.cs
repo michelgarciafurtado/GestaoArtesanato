@@ -13,8 +13,8 @@ public class GenImagensModel : PageModel
 {
     [BindProperty]
     public AdicionarImagemCmd AdicionarImagem { get; set;}
-    [TempData]
-    public string Mensagem { get; set; } = string.Empty;
+    public string MensagemErro { get; set; } = string.Empty;
+    public string MensagemSucesso { get; set; } = string.Empty;
     private readonly AppDbContext _context;
     private readonly GenImagensService _genImagensService;
 
@@ -47,7 +47,7 @@ public class GenImagensModel : PageModel
         
         if (produto == null)
         {
-            return RedirectToPage("Admin/CrudProdutos/Index", new  {Mensagem ="Produto nao encontrado" });
+            return RedirectToPage("Admin/CrudProdutos/Index", new  {MensagemErro ="Produto nao encontrado" });
         } 
             
         
@@ -74,7 +74,7 @@ public class GenImagensModel : PageModel
         }
         else
         {
-            Mensagem = "Não foi possível salvar a Imagem!";
+            MensagemErro = "Não foi possível salvar a Imagem!";
             return Page();
         }
         var produtoAtualizado = await _context.Produtos.
@@ -102,11 +102,11 @@ public class GenImagensModel : PageModel
             _genImagensService.ExcluirImagem(imagem.ImgUrl);    
             _context.ImagensProdutos.Remove(imagem);
             await _context.SaveChangesAsync();
-            Mensagem = "Imagem deletada com sucesso!";
+            MensagemSucesso = "Imagem deletada com sucesso!";
         }
         else
         {
-            Mensagem = "Imagem nao encontrada!";
+            MensagemErro = "Imagem nao encontrada!";
         }
         return RedirectToPage(new { IdProduto });
     }

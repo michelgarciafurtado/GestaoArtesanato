@@ -4,7 +4,18 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+@if (!string.IsNullOrEmpty(Model.MensagemErro))
+{
+    <div class="alert alert-danger">
+        @Model.MensagemErro
+    </div>
+}
+@if (!string.IsNullOrEmpty(Model.MensagemSucesso))
+{
+    <div class="alert alert-success">
+        @Model.MensagemSucesso
+    </div>
+}
 <h1>Edição</h1>
 
 <h4>Categoria</h4>
