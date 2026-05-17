@@ -51,6 +51,17 @@ body {
     padding: 10px 15px;
 }
 
+/* Esconde a barra de rolagem no Chrome, Safari, Edge e Opera */
+#menu-categorias::-webkit-scrollbar {
+    display: none;
+}
+
+/* Esconde a barra de rolagem no Firefox e IE/Edge antigo */
+#menu-categorias {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
 /* Ajustes para dispositivos móveis */
 @media (max-width: 768px) {
     /* Marca mais destacada */
