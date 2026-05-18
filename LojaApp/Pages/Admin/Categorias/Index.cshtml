@@ -6,6 +6,18 @@
 }
 
 <h1 class="mb-3">Gerenciamento de Categorias</h1>
+@if (!string.IsNullOrEmpty(Model.MensagemErro))
+{
+    <div class="alert alert-danger">
+        @Model.MensagemErro
+    </div>
+}
+@if (!string.IsNullOrEmpty(Model.MensagemSucesso))
+{
+    <div class="alert alert-success">
+        @Model.MensagemSucesso
+    </div>
+}
 <hr />
 <p>
     <a asp-page="Create" class="btn btn-success">Adicionar</a>

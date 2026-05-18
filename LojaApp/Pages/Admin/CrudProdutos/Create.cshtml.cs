@@ -17,8 +17,8 @@ public class CreateModel : PageModel
     public Produto Produto { get; set; } = default!;
     [BindProperty]
     public IFormFile ImagemUpload { get; set; } = default!;
-    [TempData]
-    public string Mensagem { get; set; } = default!;
+    public string MensagemErro { get; set; } = string.Empty;
+    public string MensagemSucesso { get; set; } = string.Empty;
     public SelectList SelectCategoria { get; set; } = default!;
 
 
@@ -57,12 +57,13 @@ public class CreateModel : PageModel
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "Ocorreu um erro ao fazer o upload da imagem: " + ex.Message);
+                MensagemErro = "Ocorreu um erro ao fazer o upload da imagem. Por favor, tente novamente.";
                 return Page();
             }
         }
         await _context.Produtos.AddAsync(Produto);
         await _context.SaveChangesAsync();
-        Mensagem = "Produto cadastrado com sucesso!";
+        MensagemSucesso = "Produto cadastrado com sucesso!";
         return RedirectToPage("./Index");
     }
 

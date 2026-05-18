@@ -4,6 +4,13 @@
         @{
         ViewData["Title"] = "Create";
         }
+@if (!string.IsNullOrEmpty(Model.MensagemErro))
+{
+    <div class="alert alert-danger">
+        @Model.MensagemErro
+    </div>
+}
+)
         
         <h1>Adicionar Categoria</h1>
         

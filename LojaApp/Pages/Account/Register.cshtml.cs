@@ -12,6 +12,7 @@ public class RegisterModel : PageModel
 {
     [BindProperty]
     public RegisterViewModel Input { get; set; }
+    public string Mensagem { get; set; }
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
     public RegisterModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)

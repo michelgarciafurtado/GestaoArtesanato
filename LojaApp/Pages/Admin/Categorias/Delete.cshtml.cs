@@ -21,6 +21,8 @@ namespace LojaApp.Pages.Categorias
 
         [BindProperty]
         public Categoria Categoria { get; set; } = default!;
+        public string MensagemErro { get; set; } = string.Empty;
+        public string MensagemSucesso { get; set; } = string.Empty;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -45,6 +47,7 @@ namespace LojaApp.Pages.Categorias
         {
             if (id == null)
             {
+                MensagemErro = "Categoria não encontrada.";
                 return NotFound();
             }
 
@@ -54,6 +57,7 @@ namespace LojaApp.Pages.Categorias
                 Categoria = categoria;
                 _context.Categorias.Remove(Categoria);
                 await _context.SaveChangesAsync();
+                MensagemSucesso = "Categoria excluída com sucesso.";
             }
 
             return RedirectToPage("./Index");

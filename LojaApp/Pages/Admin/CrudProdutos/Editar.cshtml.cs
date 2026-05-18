@@ -16,8 +16,8 @@ namespace LojaApp.Pages.CrudProdutos
         public Produto Produto { get; set; } = default!;
         [BindProperty]
         public IFormFile? ImagemUpload { get; set; } = default!;
-        [TempData]
-        public string Mensagem { get; set; } = default!;
+        public string MensagemErro { get; set; } = string.Empty;
+        public string MensagemSucesso { get; set; } = string.Empty;
         public SelectList SelectCategoria { get; set; } = default!;
 
         public EditarModel(AppDbContext context, GenImagensService genImagensService)
@@ -37,7 +37,7 @@ namespace LojaApp.Pages.CrudProdutos
 
             if(resultado is null)
             {
-                Mensagem = "Produto não encontrado.";
+                MensagemErro = "Produto não encontrado.";
                 return RedirectToPage("/Admin/CrudProdutos/Index");
             }
             Produto = resultado;
@@ -56,7 +56,7 @@ namespace LojaApp.Pages.CrudProdutos
         {
             if (!ModelState.IsValid)
             {
-                Mensagem = "Modelo enviado e invalido";
+                MensagemErro = "Modelo enviado e invalido";
                 SelectCategoria = new SelectList(_context.Categorias.ToList(), "IdCategoria", "Descricao");
                 return Page();
             }
@@ -67,7 +67,7 @@ namespace LojaApp.Pages.CrudProdutos
                                    .FirstOrDefaultAsync(p => p.IdProduto.Equals(Produto.IdProduto));
             if (produtoDb is null)
             {
-                Mensagem = "Produto não encontrado.";
+                MensagemErro = "Produto não encontrado.";
                 return RedirectToPage("/Admin/CrudProdutos/Index");
             }
             produtoDb.NomeProduto = Produto.NomeProduto;
@@ -87,7 +87,7 @@ namespace LojaApp.Pages.CrudProdutos
                 }
                 catch(Exception ex)
                 {
-                    Mensagem = "Erro ao Atualizar a imagem";
+                    MensagemErro = "Erro ao Atualizar a imagem";
                     throw ex;
                 }
             }
@@ -96,7 +96,7 @@ namespace LojaApp.Pages.CrudProdutos
                 produtoDb.UrlImg = Produto.UrlImg;
             }
                 await _context.SaveChangesAsync();
-            Mensagem = "Produto atualizado com sucesso!";
+            MensagemSucesso = "Produto atualizado com sucesso!";
             return RedirectToPage("/Admin/CrudProdutos/Index");
         }
 
@@ -108,7 +108,7 @@ namespace LojaApp.Pages.CrudProdutos
                 _context.Ingredientes.Remove(ingrediente);
                 await _context.SaveChangesAsync();
                 await OnPostAddProductAsync();
-                Mensagem = "Ingrediente excluído com sucesso!";
+                MensagemSucesso = "Ingrediente excluído com sucesso!";
             }
             return RedirectToPage();
         }
@@ -120,7 +120,7 @@ namespace LojaApp.Pages.CrudProdutos
                 _context.Custos.Remove(custo);
                 await _context.SaveChangesAsync();
                 await OnPostAddProductAsync();
-                Mensagem = "Custo Excluido com sucesso!";
+                MensagemSucesso = "Custo Excluido com sucesso!";
             }
             return RedirectToPage();
         }

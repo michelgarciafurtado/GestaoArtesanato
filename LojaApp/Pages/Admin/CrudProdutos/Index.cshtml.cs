@@ -13,9 +13,9 @@ namespace LojaApp.Pages.CrudProdutos
         private readonly GenImagensService _genImagensService;
         [BindProperty]
         public List<Produto> Produtos { get; set; } = default!;
-        [TempData]
-        public string Mensagem { get; set; } = default!;
-        
+        public string MensagemErro { get; set; } = string.Empty;
+        public string MensagemSucesso { get; set; } = string.Empty;
+
         public IndexModel(AppDbContext context, GenImagensService genImagensService)
         {
             _context = context;
@@ -32,7 +32,7 @@ namespace LojaApp.Pages.CrudProdutos
 
             if(Produtos.Count <= 0)
             {
-                Mensagem = "Erro ao buscar produtos";
+                MensagemErro = "Erro ao buscar produtos";
             }
 
             
@@ -45,7 +45,7 @@ namespace LojaApp.Pages.CrudProdutos
                                    .FirstOrDefaultAsync(p => p.IdProduto.Equals(IdProduto));
             if (produtoDb is null)
             {
-                Mensagem = "Produto não encontrado.";
+                MensagemErro = "Produto não encontrado.";
                 return RedirectToPage("./Index");
             }
             //Remover ingredientes associados
@@ -66,7 +66,7 @@ namespace LojaApp.Pages.CrudProdutos
 
             _context.Produtos.Remove(produtoDb);
             await _context.SaveChangesAsync();
-            Mensagem = "Produto removido com sucesso.";
+            MensagemSucesso = "Produto removido com sucesso.";
             return RedirectToPage("/Admin/CrudProdutos/Index");
         }
     }

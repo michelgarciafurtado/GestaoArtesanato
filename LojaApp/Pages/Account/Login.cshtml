@@ -3,10 +3,10 @@
 @{
     ViewData["Title"] = "Login";
 }
-@if (TempData["Mensagem"] != null)
+@if (!string.IsNullOrEmpty(Model.Mensagem))
 {
     <div class="alert alert-success">
-        @TempData["Mensagem"]
+        @Model.Mensagem
     </div>
 }
 

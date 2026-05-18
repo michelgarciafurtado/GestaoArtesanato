@@ -1,33 +1,88 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+.navbar-brand {
+    font-family: 'Georgia', serif; /* igual ao .loja-titulo */
+    font-weight: bold;
+    color: #5a3e2b !important; /* marrom usado no restante */
+}
+
+/* Links dos menus */
+.navbar-nav .nav-link {
+    font-family: 'Arial', sans-serif; /* igual ao .loja-subtitulo */
+    font-size: 1rem; /* consistente com html { font-size } */
+    font-weight: 500;
+    color: #4a2c1a !important; /* tom marrom escuro */
+    text-transform: uppercase; /* estilo de e-commerce */
+    letter-spacing: 0.5px; /* dá mais sofisticação */
+    transition: color 0.3s ease;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #8b5e3c !important; /* tom marrom mais claro no hover */
+    }
+
+#menu-categorias .nav-link {
+    display: inline-block;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #4a2c1a;
+    padding: 10px 15px;
+}
+
+/* Esconde a barra de rolagem no Chrome, Safari, Edge e Opera */
+#menu-categorias::-webkit-scrollbar {
+    display: none;
+}
+
+/* Esconde a barra de rolagem no Firefox e IE/Edge antigo */
+#menu-categorias {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 768px) {
+    /* Marca mais destacada */
+    .navbar-brand {
+        font-size: 2rem; /* aumenta bastante no mobile */
+    }
+
+    /* Itens do menu inferior menores */
+    #menu-categorias .nav-link {
+        font-size: 0.85rem; /* reduz fonte para caber melhor */
+        padding: 8px 12px; /* menos espaçamento lateral */
+    }
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+    color: var(--bs-secondary-color);
+    text-align: end;
 }
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    text-align: start;
 }
 
 .destaque-loja {
@@ -48,7 +103,6 @@ body {
     white-space: pre-line;
     font-size: 1.25rem; /* Isso equivale a cerca de 20px */
     line-height: 1.6; /* Aumenta o espaçamento entre linhas */
-    
     /* centraliza e limita a largura */
     max-width: 850px;
     margin-left: auto;

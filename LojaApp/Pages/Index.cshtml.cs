@@ -14,10 +14,11 @@ namespace LojaApp.Pages
         {
             _context = context;
         }
-        [TempData]
-        public string Mensagem { get; set; }
+        public string? Mensagem { get; set; }
         [BindProperty]
         public List<Produto> Produtos { get; set; }
+        [BindProperty]
+        public List<Categoria> Categorias { get; set; } = new List<Categoria>();
         [BindProperty]
         public IndexViewModel IndexVM { get; } = new IndexViewModel();
         public async Task<ActionResult> OnGetAsync()
@@ -29,6 +30,21 @@ namespace LojaApp.Pages
             {
                 Mensagem = "Problemas ao se conectar com a loja";
             }
+            Categorias = await _context.Categorias.ToListAsync();
+            return Page();
+        }
+
+        public async Task<ActionResult> OnGetFilterCategAsync(string IdCateg)
+        {
+            Produtos = await _context.Produtos
+                            .Include(p => p.Categoria)
+                            .Where(p => p.Categoria.IdCategoria == IdCateg)
+                            .ToListAsync();
+            if (Produtos.Count <= 0 || Produtos == null)
+            {
+                Mensagem = "Não ha itens nesta categoria";
+            }
+            Categorias = await _context.Categorias.ToListAsync();
             return Page();
         }
 

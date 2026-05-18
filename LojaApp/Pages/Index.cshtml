@@ -4,7 +4,22 @@
     ViewData["Title"] = "Mellius - Saboaria Artesanal";
 }
 
-
+<nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow sticky-top">
+    <div class="container-fluid">
+        <ul id="menu-categorias" class="navbar-nav flex-row flex-nowrap overflow-x-auto w-100">
+            @foreach(var cat in Model.Categorias)
+            {
+                <li class="nav-item text-nowrap" >
+                    <a class="nav-link" asp-page-handler="FilterCateg" asp-route-IdCateg="@cat.IdCategoria">
+                        @cat.Descricao
+                    </a>
+                   
+                </li>
+            }
+            
+        </ul>
+    </div>
+</nav>
 <div class="destaque-loja text-center py-5">
     <h1 class="display-4 loja-titulo">Mellius Saboaria Artesanal</h1>
     <p class="loja-subtitulo">
@@ -14,10 +29,10 @@
 </div>
 
 
-@if (TempData["Mensagem"] != null)
+@if (!string.IsNullOrEmpty(Model.Mensagem))
 {
     <div class="alert alert-success text-center mt-3">
-        @TempData["Mensagem"]
+        @Model.Mensagem
     </div>
 }
 
