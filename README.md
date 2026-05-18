@@ -11,6 +11,13 @@
   <li>[X] - Painel de cadastro de Produto com ingredientes baseados em materias-primas cadastradas e lista de custos variáveis</li>
   <li>[x] - Painel com separação para gestão do sistema</li>
 </ol>
+<h2>:rocket: - Fix e melhorias da fase 1</h2>
+<ol>
+  <li>[X] - Filtro de produtos por categoria na página index</li>
+  <li>[X] - Logo da marca no header</li>
+  <li>[ ] - Refatorar as mensagens de erro/sucesso - :building_construction:</li>
+  <li>[ ] - Implementar o dashboard</li>
+</ol>
 
 <h2>Fase 2</h2>
 <ol>
